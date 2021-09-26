@@ -1,3 +1,9 @@
+/*
+ * TODO
+ * 1. Exception Handling
+ * 2. Check number of rotations during delete also when using the handle_priority_downwards method
+ */
+
 #include<iostream>
 #include<climits>
 #include<cstdlib>
@@ -7,7 +13,7 @@
 using namespace std;
 
 const char TEST[] = "test_case.txt";
-const int NO_OF_OPERATIONS = 100;
+const int NO_OF_OPERATIONS = 10;
 
 class TreapNode{
 	int key;
@@ -39,6 +45,9 @@ class Treap{
 	TreapNode *root;
 	long long int no_of_rotations;
 	void printTreapUtil(TreapNode* node, FILE *fptr);
+	TreapNode *delete_key(TreapNode *, int);
+	TreapNode *handle_priority_downwards(TreapNode *);
+
 	
 	public:
 		Treap(){
@@ -46,6 +55,7 @@ class Treap{
 			no_of_rotations = 0;
 		}
 		void insert(int);
+		void insert(int k, int p);
 		TreapNode * insert(TreapNode *, int, int);
 		TreapNode * delete_key(int);
 		bool search_key(int);
@@ -64,6 +74,10 @@ bool Treap::search_key(int k){
 void Treap::insert(int k){
 	int prio = rand()%100;
 	root = insert(root, k, prio);
+}
+
+void Treap::insert(int k, int p){
+	root = insert(root, k, p);
 }
 
 TreapNode * Treap::insert(TreapNode *root, int k, int p){
@@ -99,6 +113,65 @@ TreapNode * Treap::insert(TreapNode *root, int k, int p){
 }
 
 TreapNode * Treap::delete_key(int k){
+	root = delete_key(root, k);
+}
+
+TreapNode * Treap::handle_priority_downwards(TreapNode *root){
+	if(root == NULL)
+		return NULL;
+	int left_child_priority = INT_MAX;
+	int right_child_priority = INT_MAX;
+	// root is a leaf node
+	if(root->LChild == NULL && root->RChild == NULL){
+		return NULL; // we need to return NULL as its parent will no longer point to this element after deletetion
+	}
+	// if LChild is not NULL
+	if(root->LChild != NULL)
+		left_child_priority = root->LChild->priority;
+	// if RChild is not NULL
+	if(root->RChild != NULL)
+		right_child_priority = root->RChild->priority;
+		
+	//right rotation
+	if(left_child_priority < right_child_priority){
+		TreapNode *left = root->LChild;
+		TreapNode *right_of_left = left->RChild;
+		left->RChild = root;
+		root->LChild = right_of_left;
+		no_of_rotations++;
+		left->RChild = handle_priority_downwards(left->RChild);
+		no_of_rotations++;
+		return left;
+	}
+	//left rotation
+	else{
+		TreapNode *right = root->RChild;
+		TreapNode *left_of_right = right->LChild;
+		right->LChild = root;
+		root->RChild = left_of_right;
+		no_of_rotations++;
+		right->LChild = handle_priority_downwards(right->LChild);
+		no_of_rotations++;
+		return right;
+	}
+	
+}
+
+TreapNode * Treap::delete_key(TreapNode *root, int k){
+	TreapNode *new_root = NULL;
+	if(root == NULL)
+		return NULL;
+	if(k < root->key){
+		root->LChild = delete_key(root->LChild, k);
+	}else if(k > root->key){
+		root->RChild = delete_key(root->RChild, k);
+	}else{
+		root->priority = INT_MAX;
+		new_root = handle_priority_downwards(root);
+		delete(root);
+		root = new_root;
+	}
+	return root;
 }
 
 // Utility Function to print tree
@@ -180,6 +253,7 @@ int main(){
 	
 	int choice = -1;
 	int element = -1, element2=-1;
+	int priority = 0;
 	char str[] = "graph.gv";
 	int success = 0;
 
@@ -196,6 +270,7 @@ int main(){
 		cout<<"8. Take input from file"<<endl;
 		cout<<"9. Check number of rotations"<<endl;
 		cout<<"10.Clear Treap"<<endl;
+		cout<<"11.Insert with priority"<<endl;
 		cout<<"\nPress 0 to quit.";
 		cout<<"\nEnter Your Choice: ";
 		cin>>choice;
@@ -274,7 +349,22 @@ int main(){
 				break;
 			case 10:
 				delete(treap_obj);
+				treap_obj = new Treap();
 				cout<<"The Treap has been cleared!"<<endl;
+				break;
+			case 11:
+				cout<<"Please enter the element you want to insert: ";
+				cin>>element;
+				cout<<"Please enter the priority of the element: ";
+				cin>>priority;
+				try{
+					treap_obj->insert(element,priority);
+					cout<<"Element "<<element<<" has been successfully inserted!"<<endl;
+				}catch(const char* msg){
+					cerr<<"\n---------WARNING----------"<<endl;
+					cerr<<"Exception caught at insert() method :: "<<msg<<endl;
+				}
+				break;
 			default:
 				cout<<"Incorrect Choice!"<<endl;
 				break;
