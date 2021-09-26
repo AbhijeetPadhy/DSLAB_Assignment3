@@ -2,11 +2,12 @@
 #include<climits>
 #include<cstdlib>
 #include<time.h>
+#include<string.h>
 
 using namespace std;
 
 const char TEST[] = "test_case.txt";
-const int NO_OF_OPERATIONS = 10000;
+const int NO_OF_OPERATIONS = 100;
 
 class TreapNode{
 	int key;
@@ -61,10 +62,30 @@ void Treap::insert(int k){
 TreapNode * Treap::insert(TreapNode *root, int k, int p){
 	if(root == NULL)
 		return new TreapNode(k,p);
-	if(k < root->key)
+	if(k < root->key){
 		root->LChild = insert(root->LChild,k,p);
-	else if(k > root->key)
+		if(root->priority > root->LChild->priority){
+			//Right rotation
+			TreapNode *left = root->LChild;
+			TreapNode *right_of_left = left->RChild;
+			left->RChild = root;
+			root->LChild = right_of_left;
+			return left;
+		}
+		return root;
+	}	
+	else if(k > root->key){
 		root->RChild = insert(root->RChild,k,p);
+		if(root->priority > root->RChild->priority){
+			//Left rotation
+			TreapNode *right = root->RChild;
+			TreapNode *left_of_right = right->LChild;
+			right->LChild = root;
+			root->RChild = left_of_right;
+			return right;
+		}
+		return root;
+	}	
 	return root; 
 }
 
@@ -121,6 +142,27 @@ void generate_test_case(){
 	fclose(fptr);
 }
 
+int take_input_from_file(Treap *treap_obj){
+	FILE *fptr;
+	char operation[7];
+	int element = 0;
+	if ((fptr = fopen(TEST,"r")) == NULL){
+		printf("Error! opening file\n");
+		return 0;
+	}
+	int no_of_operations = 0;
+	fscanf(fptr, "%d", &no_of_operations);
+	for(int i=0;i<no_of_operations;i++){
+		fscanf(fptr, "%s", &operation);
+		fscanf(fptr, "%d", &element);
+		if(strcmp(operation,"INSERT") == 0)
+			treap_obj->insert(element);
+		else if(strcmp(operation,"DELETE") == 0)
+			treap_obj->delete_key(element);
+	}
+	return 1;
+}
+
 int main(){
 	srand(time(0));
 	Treap *treap_obj = new Treap();
@@ -130,6 +172,7 @@ int main(){
 	int choice = -1;
 	int element = -1, element2=-1;
 	char str[] = "graph.gv";
+	int success = 0;
 
 	do{
 		cout<<"\nThis is an implementation of AVL Tree"<<endl;
@@ -140,6 +183,8 @@ int main(){
 		cout<<"4. Print an image of the tree"<<endl;
 		cout<<"5. Insert a series of elements"<<endl;
 		cout<<"6. Clone a tree and print it."<<endl;
+		cout<<"7. Generate test cases"<<endl;
+		cout<<"8. Take input from file"<<endl;
 		cout<<"\nPress 0 to quit.";
 		cout<<"\nEnter Your Choice: ";
 		cin>>choice;
@@ -199,6 +244,19 @@ int main(){
 				cout<<"Printing the tree. Check the filename cloned_graph.gv"<<endl;
 				clone->print_treap("cloned_graph.gv");
 				cout<<"Operation Successful. Please check the file cloned_graph.gv"<<endl;
+				break;
+			case 7:
+				generate_test_case();
+				cout<<"Test case file named test.txt has been created"<<endl;
+				break;
+			case 8:
+				delete(treap_obj);
+				treap_obj = new Treap();
+				success = take_input_from_file(treap_obj);
+				if(success == 1)
+					cout<<"Treap has been loaded from file"<<endl;
+				else
+					cout<<"Encountered error loading Treap from file"<<endl;
 				break;
 			default:
 				cout<<"Incorrect Choice!"<<endl;
