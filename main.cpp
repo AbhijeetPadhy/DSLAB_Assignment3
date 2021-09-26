@@ -37,18 +37,25 @@ TreapNode::TreapNode(int k, int p){
 
 class Treap{
 	TreapNode *root;
+	long long int no_of_rotations;
 	void printTreapUtil(TreapNode* node, FILE *fptr);
 	
 	public:
 		Treap(){
 			root = NULL;
+			no_of_rotations = 0;
 		}
 		void insert(int);
 		TreapNode * insert(TreapNode *, int, int);
 		TreapNode * delete_key(int);
 		bool search_key(int);
 		void print_treap(const char *filename);
+		long long int get_no_of_rotations();
 };
+
+long long int Treap::get_no_of_rotations(){
+	return no_of_rotations;
+}
 
 bool Treap::search_key(int k){
 	return false;
@@ -70,6 +77,7 @@ TreapNode * Treap::insert(TreapNode *root, int k, int p){
 			TreapNode *right_of_left = left->RChild;
 			left->RChild = root;
 			root->LChild = right_of_left;
+			no_of_rotations++;
 			return left;
 		}
 		return root;
@@ -82,6 +90,7 @@ TreapNode * Treap::insert(TreapNode *root, int k, int p){
 			TreapNode *left_of_right = right->LChild;
 			right->LChild = root;
 			root->RChild = left_of_right;
+			no_of_rotations++;
 			return right;
 		}
 		return root;
@@ -185,6 +194,8 @@ int main(){
 		cout<<"6. Clone a tree and print it."<<endl;
 		cout<<"7. Generate test cases"<<endl;
 		cout<<"8. Take input from file"<<endl;
+		cout<<"9. Check number of rotations"<<endl;
+		cout<<"10.Clear Treap"<<endl;
 		cout<<"\nPress 0 to quit.";
 		cout<<"\nEnter Your Choice: ";
 		cin>>choice;
@@ -258,6 +269,12 @@ int main(){
 				else
 					cout<<"Encountered error loading Treap from file"<<endl;
 				break;
+			case 9:
+				cout<<"Number of rotations: "<<treap_obj->get_no_of_rotations()<<endl;
+				break;
+			case 10:
+				delete(treap_obj);
+				cout<<"The Treap has been cleared!"<<endl;
 			default:
 				cout<<"Incorrect Choice!"<<endl;
 				break;
