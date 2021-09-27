@@ -13,7 +13,7 @@
 using namespace std;
 
 const char TEST[] = "test_case.txt";
-const int NO_OF_OPERATIONS = 10;
+const int NO_OF_OPERATIONS = 100;
 
 class TreapNode{
 	int key;
@@ -47,7 +47,8 @@ class Treap{
 	void printTreapUtil(TreapNode* node, FILE *fptr);
 	TreapNode *delete_key(TreapNode *, int);
 	TreapNode *handle_priority_downwards(TreapNode *);
-
+	bool search_key(TreapNode *, int);
+	TreapNode * insert(TreapNode *, int, int);
 	
 	public:
 		Treap(){
@@ -56,7 +57,6 @@ class Treap{
 		}
 		void insert(int);
 		void insert(int k, int p);
-		TreapNode * insert(TreapNode *, int, int);
 		TreapNode * delete_key(int);
 		bool search_key(int);
 		void print_treap(const char *filename);
@@ -68,7 +68,17 @@ long long int Treap::get_no_of_rotations(){
 }
 
 bool Treap::search_key(int k){
-	return false;
+	return search_key(root,k);
+}
+
+bool Treap::search_key(TreapNode *root, int k){
+	if(root == NULL)
+		return false;
+	if(k < root->key)
+		return search_key(root->LChild,k);
+	if(k > root->key)
+		return search_key(root->RChild,k);
+	return true;
 }
 
 void Treap::insert(int k){
