@@ -299,7 +299,6 @@ int main(){
 	srand(time(0));
 	Treap *treap_obj = new Treap();
 	Treap *clone = NULL;
-	generate_test_case();
 	
 	int choice = -1;
 	int element = -1, element2=-1;
