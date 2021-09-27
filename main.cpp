@@ -55,6 +55,7 @@ void TreapNode::rectify_height(){
 class Treap{
 	TreapNode *root;
 	long long int no_of_rotations;
+	long long int no_of_comparisions;
 	void printTreapUtil(TreapNode* node, FILE *fptr);
 	TreapNode *delete_key(TreapNode *, int);
 	TreapNode *handle_priority_downwards(TreapNode *);
@@ -71,10 +72,15 @@ class Treap{
 		bool search_key(int);
 		void print_treap(const char *filename);
 		long long int get_no_of_rotations();
+		long long int get_no_of_comparisions();
 		int get_height();
 		long double average_height();
 		
 };
+
+long long int Treap::get_no_of_comparisions(){
+	return no_of_comparisions;
+}
 
 long double Treap::average_height(){
 	int count = get_count(root);
@@ -106,6 +112,7 @@ long long int Treap::get_sum_of_heights(TreapNode *node){
 Treap::Treap(){
 	root = NULL;
 	no_of_rotations = 0;
+	no_of_comparisions = 0;
 }
 
 int Treap::get_height(){
@@ -149,6 +156,7 @@ TreapNode * Treap::insert(TreapNode *root, int k, int p){
 		return node;
 	}
 	if(k < root->key){
+		no_of_comparisions++;
 		root->LChild = insert(root->LChild,k,p);
 		if(root->priority > root->LChild->priority){
 			//Right rotation
@@ -169,6 +177,7 @@ TreapNode * Treap::insert(TreapNode *root, int k, int p){
 		return root;
 	}	
 	else if(k > root->key){
+		no_of_comparisions++;
 		root->RChild = insert(root->RChild,k,p);
 		if(root->priority > root->RChild->priority){
 			//Left rotation
@@ -242,9 +251,11 @@ TreapNode * Treap::delete_key(TreapNode *root, int k){
 	if(root == NULL)
 		return NULL;
 	if(k < root->key){
+		no_of_comparisions++;
 		root->LChild = delete_key(root->LChild, k);
 		root->rectify_height();
 	}else if(k > root->key){
+		no_of_comparisions++;
 		root->RChild = delete_key(root->RChild, k);
 		root->rectify_height();
 	}else{
@@ -370,6 +381,7 @@ int main(){
 		cout<<"12.Print height of the treap"<<endl;
 		cout<<"13.Display average height of each node"<<endl;
 		cout<<"14.Update the Number of operations that should be included in test case file."<<endl;
+		cout<<"15.Display number of key comparisions"<<endl;
 		cout<<"\nPress 0 to quit.";
 		cout<<"\nEnter Your Choice: ";
 		cin>>choice;
@@ -438,8 +450,14 @@ int main(){
 				delete(treap_obj);
 				treap_obj = new Treap();
 				success = take_input_from_file(treap_obj);
-				if(success == 1)
+				if(success == 1){
 					cout<<"Treap has been loaded from file"<<endl;
+					cout<<"Number of rotations: "<<treap_obj->get_no_of_rotations()<<endl;
+					cout<<"The height of the treap is "<<treap_obj->get_height()<<endl;
+					cout<<"The average height of each node is "<<treap_obj->average_height()<<endl;
+					cout<<"The number of key comparisions done during insert and delete operations is "<<treap_obj->get_no_of_comparisions()<<endl;
+				}
+					
 				else
 					cout<<"Encountered error loading Treap from file"<<endl;
 				break;
@@ -465,7 +483,7 @@ int main(){
 				}
 				break;
 			case 12:
-				cout<<"The height of the tree is "<<treap_obj->get_height()<<endl;
+				cout<<"The height of the treap is "<<treap_obj->get_height()<<endl;
 				break;
 			case 13:
 				cout<<"The average height of each node is "<<treap_obj->average_height()<<endl;
@@ -477,6 +495,9 @@ int main(){
 					NO_OF_OPERATIONS = element;
 					cout<<"The NO_OF_OPERATIONS has been updated to "<<NO_OF_OPERATIONS<<endl;
 				}
+				break;
+			case 15:
+				cout<<"The number of key comparisions done during insert and delete operations is "<<treap_obj->get_no_of_comparisions()<<endl;
 				break;	
 			default:
 				cout<<"Incorrect Choice!"<<endl;
