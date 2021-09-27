@@ -186,6 +186,8 @@ TreapNode * Treap::handle_priority_downwards(TreapNode *root){
 		root->LChild = right_of_left;
 		left->RChild = handle_priority_downwards(left->RChild);
 		no_of_rotations++;
+		// rectify height
+		left->rectify_height();
 		return left;
 	}
 	//left rotation
@@ -196,6 +198,8 @@ TreapNode * Treap::handle_priority_downwards(TreapNode *root){
 		root->RChild = left_of_right;
 		right->LChild = handle_priority_downwards(right->LChild);
 		no_of_rotations++;
+		// rectify height
+		right->rectify_height();
 		return right;
 	}
 	
@@ -207,8 +211,10 @@ TreapNode * Treap::delete_key(TreapNode *root, int k){
 		return NULL;
 	if(k < root->key){
 		root->LChild = delete_key(root->LChild, k);
+		root->rectify_height();
 	}else if(k > root->key){
 		root->RChild = delete_key(root->RChild, k);
+		root->rectify_height();
 	}else{
 		root->priority = INT_MAX;
 		new_root = handle_priority_downwards(root);
