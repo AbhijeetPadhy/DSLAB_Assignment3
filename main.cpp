@@ -18,18 +18,21 @@ const int NO_OF_OPERATIONS = 100;
 class TreapNode{
 	int key;
 	int priority;
+	int height;
 	TreapNode *LChild;
 	TreapNode *RChild;
 	
 	public:
 		TreapNode();
 		TreapNode(int k, int p);
+		void rectify_height();
 	friend class Treap;
 };
 
 TreapNode::TreapNode(){
 	key = 0;
 	priority = 0;
+	height = 0;
 	LChild = NULL;
 	RChild = NULL;
 }
@@ -37,8 +40,17 @@ TreapNode::TreapNode(){
 TreapNode::TreapNode(int k, int p){
 	key = k;
 	priority = p;
+	height = 0;
 	LChild = NULL;
 	RChild = NULL;
+}
+
+void TreapNode::rectify_height(){
+	int left_height = 0;
+	int right_height = 0;
+	if(LChild != NULL) left_height = LChild->height;
+	if(RChild != NULL) right_height = RChild->height;
+	height = 1 + ((left_height > right_height)? left_height : right_height);  
 }
 
 class Treap{
@@ -61,7 +73,12 @@ class Treap{
 		bool search_key(int);
 		void print_treap(const char *filename);
 		long long int get_no_of_rotations();
+		int get_height();
 };
+
+int Treap::get_height(){
+	return root->height;
+}
 
 long long int Treap::get_no_of_rotations(){
 	return no_of_rotations;
@@ -102,7 +119,14 @@ TreapNode * Treap::insert(TreapNode *root, int k, int p){
 			left->RChild = root;
 			root->LChild = right_of_left;
 			no_of_rotations++;
+			
+			//update heights
+			root->rectify_height();
+			left->rectify_height();
+			
 			return left;
+		}else{
+			root->rectify_height();
 		}
 		return root;
 	}	
@@ -115,7 +139,13 @@ TreapNode * Treap::insert(TreapNode *root, int k, int p){
 			right->LChild = root;
 			root->RChild = left_of_right;
 			no_of_rotations++;
+			
+			//manage height of right
+			root->rectify_height();
+			right->rectify_height();
 			return right;
+		}else{
+			root->rectify_height();
 		}
 		return root;
 	}	
@@ -281,6 +311,7 @@ int main(){
 		cout<<"9. Check number of rotations"<<endl;
 		cout<<"10.Clear Treap"<<endl;
 		cout<<"11.Insert with priority"<<endl;
+		cout<<"12.Print height of the treap"<<endl;
 		cout<<"\nPress 0 to quit.";
 		cout<<"\nEnter Your Choice: ";
 		cin>>choice;
@@ -374,6 +405,9 @@ int main(){
 					cerr<<"\n---------WARNING----------"<<endl;
 					cerr<<"Exception caught at insert() method :: "<<msg<<endl;
 				}
+				break;
+			case 12:
+				cout<<"The height of the tree is "<<treap_obj->get_height()<<endl;
 				break;
 			default:
 				cout<<"Incorrect Choice!"<<endl;
