@@ -2,6 +2,7 @@
  * TODO
  * 1. Exception Handling
  * 2. Check number of rotations during delete also when using the handle_priority_downwards method
+ * 3. Check height updation during delete also when using the handle_priority_downwards method
  */
 
 #include<iostream>
@@ -178,7 +179,6 @@ TreapNode * Treap::handle_priority_downwards(TreapNode *root){
 		TreapNode *right_of_left = left->RChild;
 		left->RChild = root;
 		root->LChild = right_of_left;
-		no_of_rotations++;
 		left->RChild = handle_priority_downwards(left->RChild);
 		no_of_rotations++;
 		return left;
@@ -189,7 +189,6 @@ TreapNode * Treap::handle_priority_downwards(TreapNode *root){
 		TreapNode *left_of_right = right->LChild;
 		right->LChild = root;
 		root->RChild = left_of_right;
-		no_of_rotations++;
 		right->LChild = handle_priority_downwards(right->LChild);
 		no_of_rotations++;
 		return right;
