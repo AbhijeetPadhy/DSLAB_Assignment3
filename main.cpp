@@ -60,12 +60,11 @@ class Treap{
 	TreapNode *handle_priority_downwards(TreapNode *);
 	bool search_key(TreapNode *, int);
 	TreapNode * insert(TreapNode *, int, int);
+	int get_count(TreapNode *);
+	long long int get_sum_of_heights(TreapNode *);
 	
 	public:
-		Treap(){
-			root = NULL;
-			no_of_rotations = 0;
-		}
+		Treap();
 		void insert(int);
 		void insert(int k, int p);
 		TreapNode * delete_key(int);
@@ -73,7 +72,41 @@ class Treap{
 		void print_treap(const char *filename);
 		long long int get_no_of_rotations();
 		int get_height();
+		long double average_height();
+		
 };
+
+long double Treap::average_height(){
+	int count = get_count(root);
+	if(count != 0)
+		return (1.0*get_sum_of_heights(root))/count;
+	return 0;
+}
+
+int Treap::get_count(TreapNode *node){
+	int LCount = 0;
+	int RCount = 0;
+	if(node == NULL)
+		return 0;
+	if(node->LChild != NULL) LCount = get_count(node->LChild);
+	if(node->RChild != NULL) RCount = get_count(node->RChild);
+	return (1 + LCount + RCount);
+}
+
+long long int Treap::get_sum_of_heights(TreapNode *node){
+	int lheight = 0;
+	int rheight = 0;
+	if(node == NULL)
+		return 0;
+	if(node->LChild != NULL) lheight = get_sum_of_heights(node->LChild);
+	if(node->RChild != NULL) rheight = get_sum_of_heights(node->RChild);
+	return (node->height + lheight + rheight);
+}
+
+Treap::Treap(){
+	root = NULL;
+	no_of_rotations = 0;
+}
 
 int Treap::get_height(){
 	if(root != NULL)
@@ -335,6 +368,7 @@ int main(){
 		cout<<"10.Clear Treap"<<endl;
 		cout<<"11.Insert with priority"<<endl;
 		cout<<"12.Print height of the treap"<<endl;
+		cout<<"13.Display average height of each node"<<endl;
 		cout<<"\nPress 0 to quit.";
 		cout<<"\nEnter Your Choice: ";
 		cin>>choice;
@@ -431,6 +465,9 @@ int main(){
 				break;
 			case 12:
 				cout<<"The height of the tree is "<<treap_obj->get_height()<<endl;
+				break;
+			case 13:
+				cout<<"The average height of each node is "<<treap_obj->average_height()<<endl;
 				break;
 			default:
 				cout<<"Incorrect Choice!"<<endl;
