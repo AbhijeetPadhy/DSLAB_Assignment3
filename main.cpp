@@ -1,7 +1,6 @@
 /*
  * TODO
  * 1. Exception Handling
- * 3. Check height updation during delete also when using the handle_priority_downwards method
  */
 
 #include<iostream>
@@ -255,6 +254,8 @@ void Treap::print_treap(const char *filename){
 
 void generate_test_case(){
 	FILE *fptr;
+	int insert[NO_OF_OPERATIONS];
+	int insert_count = 0;
 	int operation = 0;
 	int element = 0;
 	
@@ -263,13 +264,26 @@ void generate_test_case(){
 		return;
 	}
 	fprintf(fptr, "%d\n", NO_OF_OPERATIONS);
-	for(int i=0;i<NO_OF_OPERATIONS;i++){
+	
+	//First operation must always be insert
+	element = rand()%NO_OF_OPERATIONS;
+	insert[insert_count] = element;
+	fprintf(fptr, "INSERT %d\n", element);
+			insert_count++;
+	
+	// Generate random cases for next cases
+	for(int i=1;i<NO_OF_OPERATIONS;i++){
 		operation = rand()%2;
-		element = rand()%99999;
-		if(operation == 0)
+		if(operation == 0){
+			element = rand()%NO_OF_OPERATIONS;
+			insert[insert_count] = element;
 			fprintf(fptr, "INSERT %d\n", element);
-		else
+			insert_count++;
+		}else{
+			int index = rand()%insert_count;
+			element = insert[index];
 			fprintf(fptr, "DELETE %d\n", element);
+		}
 	}
 	fclose(fptr);
 }
@@ -383,7 +397,7 @@ int main(){
 				break;
 			case 7:
 				generate_test_case();
-				cout<<"Test case file named test.txt has been created"<<endl;
+				cout<<"Test case file named test_case.txt has been created"<<endl;
 				break;
 			case 8:
 				delete(treap_obj);
