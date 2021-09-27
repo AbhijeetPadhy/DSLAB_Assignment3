@@ -1,7 +1,6 @@
 /*
  * TODO
  * 1. Exception Handling
- * 2. Check number of rotations during delete also when using the handle_priority_downwards method
  * 3. Check height updation during delete also when using the handle_priority_downwards method
  */
 
@@ -78,7 +77,9 @@ class Treap{
 };
 
 int Treap::get_height(){
-	return root->height;
+	if(root != NULL)
+		return root->height;
+	return 0;
 }
 
 long long int Treap::get_no_of_rotations(){
@@ -109,8 +110,12 @@ void Treap::insert(int k, int p){
 }
 
 TreapNode * Treap::insert(TreapNode *root, int k, int p){
-	if(root == NULL)
-		return new TreapNode(k,p);
+	TreapNode *node = NULL;
+	if(root == NULL){
+		node = new TreapNode(k,p);
+		node->rectify_height();
+		return node;
+	}
 	if(k < root->key){
 		root->LChild = insert(root->LChild,k,p);
 		if(root->priority > root->LChild->priority){
