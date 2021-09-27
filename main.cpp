@@ -12,7 +12,7 @@
 using namespace std;
 
 const char TEST[] = "test_case.txt";
-const int NO_OF_OPERATIONS = 100;
+int NO_OF_OPERATIONS = 10000;
 
 class TreapNode{
 	int key;
@@ -369,6 +369,7 @@ int main(){
 		cout<<"11.Insert with priority"<<endl;
 		cout<<"12.Print height of the treap"<<endl;
 		cout<<"13.Display average height of each node"<<endl;
+		cout<<"14.Update the Number of operations that should be included in test case file."<<endl;
 		cout<<"\nPress 0 to quit.";
 		cout<<"\nEnter Your Choice: ";
 		cin>>choice;
@@ -469,6 +470,14 @@ int main(){
 			case 13:
 				cout<<"The average height of each node is "<<treap_obj->average_height()<<endl;
 				break;
+			case 14:
+				cout<<"Enter the number of operations: ";
+				cin>>element;
+				if(element>1){
+					NO_OF_OPERATIONS = element;
+					cout<<"The NO_OF_OPERATIONS has been updated to "<<NO_OF_OPERATIONS<<endl;
+				}
+				break;	
 			default:
 				cout<<"Incorrect Choice!"<<endl;
 				break;
