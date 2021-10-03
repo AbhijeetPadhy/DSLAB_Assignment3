@@ -7,6 +7,7 @@
 using namespace std;
 #include "treap.h"
 #include "AVL_Tree.h"
+#include "ThreadedBST.h"
 
 const char TEST[] = "test_case.txt";
 int NO_OF_OPERATIONS = 10000;
@@ -228,6 +229,7 @@ void treap_executor(){
 void performance_comparator(){
 	treap *treap_obj = new treap();
 	AVL_Tree *avl_tree_object = new AVL_Tree();
+	TreeAPI *bst_object = new TreeAPI();
 }
 
 int main(int argc, char** argv) {

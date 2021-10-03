@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = treap.o main.o AVL_Tree.o
-LINKOBJ  = treap.o main.o AVL_Tree.o
+OBJ      = treap.o main.o AVL_Tree.o ThreadedBST.o
+LINKOBJ  = treap.o main.o AVL_Tree.o ThreadedBST.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -32,3 +32,6 @@ main.o: main.cpp
 
 AVL_Tree.o: AVL_Tree.cpp
 	$(CPP) -c AVL_Tree.cpp -o AVL_Tree.o $(CXXFLAGS)
+
+ThreadedBST.o: ThreadedBST.cpp
+	$(CPP) -c ThreadedBST.cpp -o ThreadedBST.o $(CXXFLAGS)
