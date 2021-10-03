@@ -2,6 +2,7 @@
 #define THREADEDBST_H
 
 #include <iostream>
+using namespace std;
 
 // Class for implementation of a Threaded Binary Search Tree
 class ThreadedBST{
@@ -31,40 +32,10 @@ class ThreadedBST{
 class TreeAPI{
 	ThreadedBST *root;
 	public:
-		TreeAPI(){
-			root = NULL;
-		}
-		void insert(int val){
-			if(root == NULL)
-				root = new ThreadedBST(val);
-			else{
-				try{
-					root->insert(val);
-				}catch(const char* msg){
-					cerr<<"\n---------WARNING----------"<<endl;
-					cerr<<"Exception caught at insert() method :: "<<msg<<endl;
-				}
-			}
-		}
-		ThreadedBST *deleteElement(int val){
-			if(root != NULL){
-				try{
-					root = root->deleteElement(val);
-					return root;
-				}catch(const char* msg){
-					cerr<<"\n---------WARNING----------"<<endl;
-					cerr<<"Exception caught at deleteElement() method :: "<<msg<<endl;
-				}
-			}	
-			return NULL;
-		}
-		
-		void printTree(){
-			if(root == NULL)
-				cout<<"The tree is empty now. Hence it cannot be printed!"<<endl;
-			else
-				root->printTree();
-		}
+		TreeAPI();
+		void insert(int val);
+		ThreadedBST *deleteElement(int val);
+		void printTree();
 };
 
 #endif

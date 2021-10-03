@@ -197,3 +197,38 @@ void ThreadedBST::printTree(char *str){
 	fprintf(fptr,"}");
 	fclose(fptr);
 }
+
+TreeAPI::TreeAPI(){
+	root = NULL;
+}
+void TreeAPI::insert(int val){
+	if(root == NULL)
+		root = new ThreadedBST(val);
+	else{
+		try{
+			root->insert(val);
+		}catch(const char* msg){
+			cerr<<"\n---------WARNING----------"<<endl;
+			cerr<<"Exception caught at insert() method :: "<<msg<<endl;
+		}
+	}
+}
+ThreadedBST* TreeAPI::deleteElement(int val){
+	if(root != NULL){
+		try{
+			root = root->deleteElement(val);
+			return root;
+		}catch(const char* msg){
+			cerr<<"\n---------WARNING----------"<<endl;
+			cerr<<"Exception caught at deleteElement() method :: "<<msg<<endl;
+		}
+	}	
+	return NULL;
+}
+
+void TreeAPI::printTree(){
+	if(root == NULL)
+		cout<<"The tree is empty now. Hence it cannot be printed!"<<endl;
+	else
+		root->printTree();
+}
