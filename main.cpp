@@ -69,6 +69,7 @@ int take_input_from_file(treap *treap_obj){
 		else if(strcmp(operation,"DELETE") == 0)
 			treap_obj->delete_key(element);
 	}
+	treap_obj->print_treap("graph.gv");
 	return 1;
 }
 
@@ -227,9 +228,51 @@ void treap_executor(){
 }
 
 void performance_comparator(){
-	treap *treap_obj = new treap();
-	AVL_Tree *avl_tree_object = new AVL_Tree();
-	TreeAPI *bst_object = new TreeAPI();
+	treap *treap_obj;
+	AVL_Tree *avl_tree_object;
+	TreeAPI *bst_object;
+	int element;
+	int choice = -1;
+	
+	do{
+		cout<<"\nThis is an implementation of Comparision operations"<<endl;
+		cout<<"--------------------------------------------------------"<<endl;
+		cout<<"1. Generate Test Case"<<endl;
+		cout<<"2. Run Test case on Threaded Binary Search Tree"<<endl;
+		cout<<"3. Run Test case on AVL Tree"<<endl;
+		cout<<"4. Run Test case on Treap"<<endl;
+		cout<<"5. Update the Number of operations that should be included in test case file."<<endl;
+		cout<<"\nPress 0 to quit.";
+		cout<<"\nEnter Your Choice: ";
+		cin>>choice;
+		cout<<"\n------------------OPERATION-------------------"<<endl;
+		switch(choice){
+			case 0:
+				break;
+			case 1:
+				generate_test_case();
+				cout<<"Test case file named test_case.txt has been created"<<endl;
+				break;
+				
+			case 4:
+				treap_obj = new treap();
+				take_input_from_file(treap_obj);
+				delete(treap_obj);
+				break;
+			case 5:
+				cout<<"Enter the number of operations: ";
+				cin>>element;
+				if(element>1){
+					NO_OF_OPERATIONS = element;
+					cout<<"The NO_OF_OPERATIONS has been updated to "<<NO_OF_OPERATIONS<<endl;
+				}
+				break;
+			default:
+				cout<<"Incorrect Choice!"<<endl;
+				break;
+			}
+	}while(choice != 0);
+	return;
 }
 
 int main(int argc, char** argv) {
@@ -237,7 +280,7 @@ int main(int argc, char** argv) {
 	int choice = -1;
 	
 	do{
-		cout<<"\nThis is an implementation of Treap"<<endl;
+		cout<<"\nThis is an implementation of Assignment 3 of DS LAB"<<endl;
 		cout<<"--------------------------------------------------------"<<endl;
 		cout<<"1. Go to Treap operations"<<endl;
 		cout<<"2. Comparision operations"<<endl;
