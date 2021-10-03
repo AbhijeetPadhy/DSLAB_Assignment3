@@ -1,12 +1,6 @@
 #ifndef TREAP_H
 #define TREAP_H
 
-#include<iostream>
-#include<climits>
-#include<cstdlib>
-#include<time.h>
-#include<string.h>
-
 class treap_node{
 	int key;
 	int priority;
