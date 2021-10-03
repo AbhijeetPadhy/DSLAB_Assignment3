@@ -10,6 +10,8 @@ using namespace std;
 const char TEST[] = "test_case.txt";
 int NO_OF_OPERATIONS = 10000;
 
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
 void generate_test_case(){
 	FILE *fptr;
 	int insert[NO_OF_OPERATIONS];
@@ -68,8 +70,7 @@ int take_input_from_file(treap *treap_obj){
 	return 1;
 }
 
-int main(int argc, char** argv) {
-	srand(time(0));
+void treap_executor(){
 	treap *treap_obj = new treap();
 	treap *clone = NULL;
 	
@@ -80,7 +81,7 @@ int main(int argc, char** argv) {
 	int success = 0;
 
 	do{
-		cout<<"\nThis is an implementation of AVL Tree"<<endl;
+		cout<<"\nThis is an implementation of Treap"<<endl;
 		cout<<"--------------------------------------------------------"<<endl;
 		cout<<"1. Insert an element"<<endl;
 		cout<<"2. Delete an element"<<endl;
@@ -221,6 +222,33 @@ int main(int argc, char** argv) {
 	}while(choice != 0);
 	
 	delete(treap_obj);
+}
+
+int main(int argc, char** argv) {
+	srand(time(0));
+	int choice = -1;
+	
+	do{
+		cout<<"\nThis is an implementation of Treap"<<endl;
+		cout<<"--------------------------------------------------------"<<endl;
+		cout<<"1. Go to Treap operations"<<endl;
+		cout<<"2. Comparision operations"<<endl;
+		cout<<"\nPress 0 to quit.";
+		cout<<"\nEnter Your Choice: ";
+		cin>>choice;
+		cout<<"\n------------------OPERATION-------------------"<<endl;
+		switch(choice){
+			case 0:
+				break;
+			case 1:
+				treap_executor();
+				break;
+			default:
+				cout<<"Incorrect Choice!"<<endl;
+				break;
+			}
+	}while(choice != 0);
 	
 	return 0;
 }
+

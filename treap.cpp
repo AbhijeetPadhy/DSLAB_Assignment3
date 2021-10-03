@@ -2,7 +2,6 @@
 
 const char TEST[] = "test_case.txt";
 
-
 treap_node::treap_node(){
 	key = 0;
 	priority = 0;
