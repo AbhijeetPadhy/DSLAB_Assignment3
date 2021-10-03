@@ -6,6 +6,7 @@
 
 using namespace std;
 #include "treap.h"
+#include "AVL_Tree.h"
 
 const char TEST[] = "test_case.txt";
 int NO_OF_OPERATIONS = 10000;
@@ -224,6 +225,11 @@ void treap_executor(){
 	delete(treap_obj);
 }
 
+void performance_comparator(){
+	treap *treap_obj = new treap();
+	AVL_Tree *avl_tree_object = new AVL_Tree();
+}
+
 int main(int argc, char** argv) {
 	srand(time(0));
 	int choice = -1;
@@ -242,6 +248,9 @@ int main(int argc, char** argv) {
 				break;
 			case 1:
 				treap_executor();
+				break;
+			case 2:
+				performance_comparator();
 				break;
 			default:
 				cout<<"Incorrect Choice!"<<endl;
