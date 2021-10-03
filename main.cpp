@@ -73,6 +73,54 @@ int take_input_from_file(treap *treap_obj){
 	return 1;
 }
 
+int take_input_from_file(AVL_Tree *avl_tree_object){
+	FILE *fptr;
+	char operation[7];
+	int element = 0;
+	if ((fptr = fopen(TEST,"r")) == NULL){
+		printf("Error! opening file\n");
+		return 0;
+	}
+	int no_of_operations = 0;
+	fscanf(fptr, "%d", &no_of_operations);
+	for(int i=0;i<no_of_operations;i++){
+		fscanf(fptr, "%s", &operation);
+		fscanf(fptr, "%d", &element);
+		if(strcmp(operation,"INSERT") == 0)
+			try{
+				avl_tree_object->AVL_Insert(element);
+			}catch(const char* msg){}
+		else if(strcmp(operation,"DELETE") == 0)
+			try{
+				avl_tree_object->AVL_Delete(element);
+			}catch(const char* msg){}
+	}
+	avl_tree_object->AVL_Print("graph.gv");
+	return 1;
+}
+
+int take_input_from_file(TreeAPI *bst_object){
+	FILE *fptr;
+	char operation[7];
+	int element = 0;
+	if ((fptr = fopen(TEST,"r")) == NULL){
+		printf("Error! opening file\n");
+		return 0;
+	}
+	int no_of_operations = 0;
+	fscanf(fptr, "%d", &no_of_operations);
+	for(int i=0;i<no_of_operations;i++){
+		fscanf(fptr, "%s", &operation);
+		fscanf(fptr, "%d", &element);
+		if(strcmp(operation,"INSERT") == 0)
+			bst_object->insert(element);
+		else if(strcmp(operation,"DELETE") == 0)
+			bst_object->deleteElement(element);
+	}
+	bst_object->printTree();
+	return 1;
+}
+
 void treap_executor(){
 	treap *treap_obj = new treap();
 	treap *clone = NULL;
@@ -253,7 +301,16 @@ void performance_comparator(){
 				generate_test_case();
 				cout<<"Test case file named test_case.txt has been created"<<endl;
 				break;
-				
+			case 2:
+				bst_object = new TreeAPI();
+				take_input_from_file(bst_object);
+				delete(bst_object);
+				break;
+			case 3:
+				avl_tree_object = new AVL_Tree();
+				take_input_from_file(avl_tree_object);
+				delete(avl_tree_object);
+				break;
 			case 4:
 				treap_obj = new treap();
 				take_input_from_file(treap_obj);

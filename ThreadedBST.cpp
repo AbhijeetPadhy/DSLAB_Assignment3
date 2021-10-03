@@ -208,8 +208,6 @@ void TreeAPI::insert(int val){
 		try{
 			root->insert(val);
 		}catch(const char* msg){
-			cerr<<"\n---------WARNING----------"<<endl;
-			cerr<<"Exception caught at insert() method :: "<<msg<<endl;
 		}
 	}
 }
@@ -219,8 +217,6 @@ ThreadedBST* TreeAPI::deleteElement(int val){
 			root = root->deleteElement(val);
 			return root;
 		}catch(const char* msg){
-			cerr<<"\n---------WARNING----------"<<endl;
-			cerr<<"Exception caught at deleteElement() method :: "<<msg<<endl;
 		}
 	}	
 	return NULL;

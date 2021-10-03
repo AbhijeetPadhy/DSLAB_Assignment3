@@ -55,7 +55,6 @@ AVL_Tree & AVL_Tree::operator=(const AVL_Tree &T){
 // function to insert an element
 // exception is thrown if we try to insert an element already present in the tree
 void AVL_Tree::AVL_Insert(int k){
-	printf("+\n");
 	if(root == NULL){
 		root = new AVL_Node(k);
 		return;
@@ -115,10 +114,8 @@ void AVL_Tree::AVL_Insert(int k){
 			P = P->RChild;
 		}
 	}
-	printf("+\n");
 	if(S->bf == 0){
 		S->bf = -a;
-		printf("+\n");
 		delete(dummy);
 		return;
 	}
@@ -159,7 +156,7 @@ void AVL_Tree::AVL_Insert(int k){
 			}else if(P->bf == 0){
 				S->bf = 0;
 				R->bf = 0;
-			}else if(a == 1){
+			}else if(P->bf == a){
 				S->bf = 0;
 				R->bf = -a;
 			}
@@ -261,7 +258,6 @@ void AVL_Tree::AVL_Delete(int k){
 			else{
 				// find successor
 				AVL_Node *cur = P->RChild;
-				cout<<"Starting from "<<cur->key<<endl;
 				while(cur->LChild != NULL)
 					cur = cur->LChild;
 				int a = cur->key;
