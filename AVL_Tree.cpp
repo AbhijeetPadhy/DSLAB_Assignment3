@@ -9,6 +9,7 @@ AVL_Node::AVL_Node(int k){
 	bf = 0;
 	LChild = NULL;
 	RChild = NULL;
+	height = 0;
 }
 
 Stack_Node::Stack_Node(){
@@ -506,6 +507,68 @@ void AVL_Tree::AVL_ClearTree(AVL_Node *node){
 	AVL_ClearTree(node->RChild);
 	delete(node);
 	return;
+}
+
+int AVL_Tree::count_of_nodes(AVL_Node* node){
+	if(node == NULL)
+		return 0;
+	int lcount = 0;
+	int rcount = 0;
+	
+	if(node->LChild != NULL)
+		lcount = count_of_nodes(node->LChild);
+	if(node->RChild != NULL)
+		rcount = count_of_nodes(node->RChild);
+	
+	return (1+lcount+rcount);
+}
+
+int AVL_Tree::sum_of_height_of_nodes(AVL_Node* node){
+	if(node == NULL)
+		return 0;
+	int lsum = 0;
+	int rsum = 0;
+	
+	if(node->LChild != NULL)
+		lsum = sum_of_height_of_nodes(node->LChild);
+	if(node->RChild != NULL)
+		rsum = sum_of_height_of_nodes(node->RChild);
+	
+	return (node->height+lsum+rsum);
+}
+
+int AVL_Tree::get_height(AVL_Node* node){
+	if(node == NULL)
+		return 0;
+	int lheight = 0;
+	int rheight = 0;
+	
+	if(node->LChild != NULL)
+		lheight = get_height(node->LChild);
+	if(node->RChild != NULL)
+		rheight = get_height(node->RChild);
+	
+	if(lheight > rheight)
+		node->height = 1+lheight;
+	else
+		node->height = 1+rheight;
+	
+	return node->height;
+}
+
+int AVL_Tree::get_height(){
+	return get_height(root);
+}
+
+double AVL_Tree::get_average_height(){
+	int count = 0; 
+	int sum = 0;
+	if(root != NULL){
+		count = count_of_nodes(root);
+		sum = sum_of_height_of_nodes(root);
+		return (1.0*sum/count);
+	}
+	return 0;
 }
 
 // Destructor

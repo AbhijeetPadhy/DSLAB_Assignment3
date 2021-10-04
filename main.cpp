@@ -310,13 +310,20 @@ void performance_comparator(){
 					//cout<<"Number of rotations: "<<bst_object->get_no_of_rotations()<<endl;
 					cout<<"The height of the BST is "<<bst_object->get_height()<<endl;
 					cout<<"The average height of each node is "<<bst_object->get_average_height()<<endl;
-					//cout<<"The number of key comparisions done during insert and delete operations is "<<treap_obj->get_no_of_comparisions()<<endl;
+					//cout<<"The number of key comparisions done during insert and delete operations is "<<bst_object->get_no_of_comparisions()<<endl;
 				}
 				delete(bst_object);
 				break;
 			case 3:
 				avl_tree_object = new AVL_Tree();
-				take_input_from_file(avl_tree_object);
+				success = take_input_from_file(avl_tree_object);
+				if(success == 1){
+					cout<<"AVL Tree has been loaded from file"<<endl;
+					//cout<<"Number of rotations: "<<avl_tree_object->get_no_of_rotations()<<endl;
+					cout<<"The height of the BST is "<<avl_tree_object->get_height()<<endl;
+					cout<<"The average height of each node is "<<avl_tree_object->get_average_height()<<endl;
+					//cout<<"The number of key comparisions done during insert and delete operations is "<<avl_tree_object->get_no_of_comparisions()<<endl;
+				}
 				delete(avl_tree_object);
 				break;
 			case 4:
