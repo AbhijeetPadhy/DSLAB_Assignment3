@@ -12,12 +12,13 @@ class ThreadedBST{
 		bool rightThread;       // It is true when rightChild is NULL or is pointing as a thread to its successor. It is false when rightChild is pointing to its right child node.
 		ThreadedBST *rightChild;// Stores pointer of right child. It can be NULL, or it can also point as a thread to its successor if there is no right child.
 		int rcount;             // Stores size of right subtree
+		int height;
+		int no_of_comparisions;
 		
 		ThreadedBST *leftMost(ThreadedBST *root);                   //Returns the left most tree node
 		ThreadedBST *rightMost(ThreadedBST *root);                  //Returns the right most tree node
 		int printTreeUtil(FILE*);                                   // Utility helper function for printTree
 		void printTree(char *);                                     // Creates a pictorial image of the tree but the gv file name has to be specified in arguement
-		int height;
 		
 	public:
 		//constructor
@@ -30,6 +31,7 @@ class ThreadedBST{
 		int find_height();
 		int count_of_nodes();
 		int sum_of_height_of_nodes();
+		int get_no_of_comparisions();
 };
 
 // An API which is provided to do operations on a tree for ease of access
@@ -42,6 +44,7 @@ class TreeAPI{
 		void printTree();
 		int get_height();
 		double get_average_height();
+		int get_no_of_comparisions();
 };
 
 #endif

@@ -310,7 +310,7 @@ void performance_comparator(){
 					//cout<<"Number of rotations: "<<bst_object->get_no_of_rotations()<<endl;
 					cout<<"The height of the BST is "<<bst_object->get_height()<<endl;
 					cout<<"The average height of each node is "<<bst_object->get_average_height()<<endl;
-					//cout<<"The number of key comparisions done during insert and delete operations is "<<bst_object->get_no_of_comparisions()<<endl;
+					cout<<"The number of key comparisions done during insert and delete operations is "<<bst_object->get_no_of_comparisions()<<endl;
 				}
 				delete(bst_object);
 				break;

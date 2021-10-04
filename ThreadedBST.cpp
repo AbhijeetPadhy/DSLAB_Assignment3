@@ -9,6 +9,7 @@ ThreadedBST::ThreadedBST(int val){
 	rightChild = NULL;
 	rcount = 0;
 	height = 0;
+	no_of_comparisions = 0;
 }
 
 int ThreadedBST::count_of_nodes(){
@@ -52,24 +53,41 @@ int ThreadedBST::find_height(){
 	return height;
 }
 
+int ThreadedBST::get_no_of_comparisions(){
+	int lcount = 0;
+	int rcount = 0;
+	
+	if(leftChild != NULL && leftThread != true)
+		lcount = leftChild->get_no_of_comparisions();
+	if(rightChild != NULL && rightThread != true)
+		rcount = rightChild->get_no_of_comparisions();
+	
+	return (no_of_comparisions+lcount+rcount);
+}
+
 // Function to find out left most node in a tree
 ThreadedBST *ThreadedBST::leftMost(ThreadedBST *root){
 	ThreadedBST *cur = root;
-	while(cur->leftThread == false)
+	while(cur->leftThread == false){
+		no_of_comparisions++;
 		cur = cur->leftChild;
+	}	
 	return cur;
 }
 
 // Function to find out right most node in a tree
 ThreadedBST *ThreadedBST::rightMost(ThreadedBST *root){
 	ThreadedBST *cur = root;
-	while(cur->rightThread == false)
+	while(cur->rightThread == false){
+		no_of_comparisions++;
 		cur = cur->rightChild;
+	}
 	return cur;
 }
 
 // Function to insert a new node with a key value of val in a tree
 void ThreadedBST::insert(int val){
+	no_of_comparisions++;
 	// If val < key, recur for left sub tree
 	if(val<key){
 		if(leftThread == true){
@@ -111,6 +129,7 @@ void ThreadedBST::insert(int val){
 
 // Function to delete an element in a tree, Exception is thrown if element to be deleted is not found
 ThreadedBST* ThreadedBST::deleteElement(int val){
+	no_of_comparisions++;
 	// If this is the node to be deleted
 	if(key == val){
 		//case1: leaf node
@@ -285,5 +304,11 @@ double TreeAPI::get_average_height(){
 		sum = root->sum_of_height_of_nodes();
 		return (1.0*sum/count);
 	}
+	return 0;
+}
+
+int TreeAPI::get_no_of_comparisions(){
+	if(root != NULL)
+		return root->get_no_of_comparisions();
 	return 0;
 }
