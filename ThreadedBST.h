@@ -17,6 +17,7 @@ class ThreadedBST{
 		ThreadedBST *rightMost(ThreadedBST *root);                  //Returns the right most tree node
 		int printTreeUtil(FILE*);                                   // Utility helper function for printTree
 		void printTree(char *);                                     // Creates a pictorial image of the tree but the gv file name has to be specified in arguement
+		int height;
 		
 	public:
 		//constructor
@@ -26,6 +27,7 @@ class ThreadedBST{
 		ThreadedBST *deleteElement(int val);                        // Delete a node of the tree with value equal to val
 		ThreadedBST *successor(ThreadedBST *);                      // Returns pointer to the successor node of the node passed in arguement.
 		void printTree();                                           // Creates a pictorial image of the tree
+		int find_height();
 };
 
 // An API which is provided to do operations on a tree for ease of access
@@ -36,6 +38,7 @@ class TreeAPI{
 		void insert(int val);
 		ThreadedBST *deleteElement(int val);
 		void printTree();
+		int find_height();
 };
 
 #endif

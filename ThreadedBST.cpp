@@ -8,6 +8,24 @@ ThreadedBST::ThreadedBST(int val){
 	leftChild = NULL;
 	rightChild = NULL;
 	rcount = 0;
+	height = 0;
+}
+
+int ThreadedBST::find_height(){
+	int lheight = 0;
+	int rheight = 0;
+	
+	if(leftChild != NULL)
+		lheight = leftChild->find_height();
+	if(rightChild != NULL)
+		rheight = rightChild->find_height();
+	
+	if(lheight > rheight)
+		height = 1+lheight;
+	else
+		height = 1+rheight;
+	
+	return height;
 }
 
 // Function to find out left most node in a tree
@@ -227,4 +245,10 @@ void TreeAPI::printTree(){
 		cout<<"The tree is empty now. Hence it cannot be printed!"<<endl;
 	else
 		root->printTree();
+}
+
+int TreeAPI::find_height(){
+	if(root != NULL)
+		return root->find_height();
+	return 0;
 }
