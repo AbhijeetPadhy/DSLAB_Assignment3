@@ -281,6 +281,7 @@ void performance_comparator(){
 	TreeAPI *bst_object;
 	int element;
 	int choice = -1;
+	int success = 0;
 	
 	do{
 		cout<<"\nThis is an implementation of Comparision operations"<<endl;
@@ -303,7 +304,14 @@ void performance_comparator(){
 				break;
 			case 2:
 				bst_object = new TreeAPI();
-				take_input_from_file(bst_object);
+				success = take_input_from_file(bst_object);
+				if(success == 1){
+					cout<<"BST has been loaded from file"<<endl;
+					//cout<<"Number of rotations: "<<bst_object->get_no_of_rotations()<<endl;
+					cout<<"The height of the BST is "<<bst_object->get_height()<<endl;
+					cout<<"The average height of each node is "<<bst_object->get_average_height()<<endl;
+					//cout<<"The number of key comparisions done during insert and delete operations is "<<treap_obj->get_no_of_comparisions()<<endl;
+				}
 				delete(bst_object);
 				break;
 			case 3:
@@ -313,7 +321,14 @@ void performance_comparator(){
 				break;
 			case 4:
 				treap_obj = new treap();
-				take_input_from_file(treap_obj);
+				success = take_input_from_file(treap_obj);
+				if(success == 1){
+					cout<<"Treap has been loaded from file"<<endl;
+					cout<<"Number of rotations: "<<treap_obj->get_no_of_rotations()<<endl;
+					cout<<"The height of the treap is "<<treap_obj->get_height()<<endl;
+					cout<<"The average height of each node is "<<treap_obj->average_height()<<endl;
+					cout<<"The number of key comparisions done during insert and delete operations is "<<treap_obj->get_no_of_comparisions()<<endl;
+				}
 				delete(treap_obj);
 				break;
 			case 5:

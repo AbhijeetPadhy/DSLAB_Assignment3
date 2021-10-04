@@ -28,6 +28,8 @@ class ThreadedBST{
 		ThreadedBST *successor(ThreadedBST *);                      // Returns pointer to the successor node of the node passed in arguement.
 		void printTree();                                           // Creates a pictorial image of the tree
 		int find_height();
+		int count_of_nodes();
+		int sum_of_height_of_nodes();
 };
 
 // An API which is provided to do operations on a tree for ease of access
@@ -38,7 +40,8 @@ class TreeAPI{
 		void insert(int val);
 		ThreadedBST *deleteElement(int val);
 		void printTree();
-		int find_height();
+		int get_height();
+		double get_average_height();
 };
 
 #endif

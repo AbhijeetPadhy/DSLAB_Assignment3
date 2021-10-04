@@ -11,13 +11,37 @@ ThreadedBST::ThreadedBST(int val){
 	height = 0;
 }
 
+int ThreadedBST::count_of_nodes(){
+	int lcount = 0;
+	int rcount = 0;
+	
+	if(leftChild != NULL && leftThread != true)
+		lcount = leftChild->count_of_nodes();
+	if(rightChild != NULL && rightThread != true)
+		rcount = rightChild->count_of_nodes();
+	
+	return (1+lcount+rcount);
+}
+
+int ThreadedBST::sum_of_height_of_nodes(){
+	int lsum = 0;
+	int rsum = 0;
+	
+	if(leftChild != NULL && leftThread != true)
+		lsum = leftChild->sum_of_height_of_nodes();
+	if(rightChild != NULL && rightThread != true)
+		rsum = rightChild->sum_of_height_of_nodes();
+	
+	return (height+lsum+rsum);
+}
+
 int ThreadedBST::find_height(){
 	int lheight = 0;
 	int rheight = 0;
 	
-	if(leftChild != NULL)
+	if(leftChild != NULL && leftThread != true)
 		lheight = leftChild->find_height();
-	if(rightChild != NULL)
+	if(rightChild != NULL && rightThread != true)
 		rheight = rightChild->find_height();
 	
 	if(lheight > rheight)
@@ -247,8 +271,19 @@ void TreeAPI::printTree(){
 		root->printTree();
 }
 
-int TreeAPI::find_height(){
+int TreeAPI::get_height(){
 	if(root != NULL)
 		return root->find_height();
+	return 0;
+}
+
+double TreeAPI::get_average_height(){
+	int count = 0; 
+	int sum = 0;
+	if(root != NULL){
+		count = root->count_of_nodes();
+		sum = root->sum_of_height_of_nodes();
+		return (1.0*sum/count);
+	}
 	return 0;
 }
