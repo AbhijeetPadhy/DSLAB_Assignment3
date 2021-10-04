@@ -103,8 +103,8 @@ treap_node * treap::insert(treap_node *root, int k, int p){
 		node->rectify_height();
 		return node;
 	}
+	no_of_comparisions++;
 	if(k < root->key){
-		no_of_comparisions++;
 		root->LChild = insert(root->LChild,k,p);
 		if(root->priority > root->LChild->priority){
 			//Right rotation
@@ -125,7 +125,6 @@ treap_node * treap::insert(treap_node *root, int k, int p){
 		return root;
 	}	
 	else if(k > root->key){
-		no_of_comparisions++;
 		root->RChild = insert(root->RChild,k,p);
 		if(root->priority > root->RChild->priority){
 			//Left rotation
@@ -154,6 +153,7 @@ treap_node * treap::delete_key(int k){
 treap_node * treap::handle_priority_downwards(treap_node *root){
 	if(root == NULL)
 		return NULL;
+	no_of_comparisions++;
 	int left_child_priority = INT_MAX;
 	int right_child_priority = INT_MAX;
 	// root is a leaf node
@@ -198,12 +198,11 @@ treap_node * treap::delete_key(treap_node *root, int k){
 	treap_node *new_root = NULL;
 	if(root == NULL)
 		return NULL;
+	no_of_comparisions++;
 	if(k < root->key){
-		no_of_comparisions++;
 		root->LChild = delete_key(root->LChild, k);
 		root->rectify_height();
 	}else if(k > root->key){
-		no_of_comparisions++;
 		root->RChild = delete_key(root->RChild, k);
 		root->rectify_height();
 	}else{
