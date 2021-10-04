@@ -23,6 +23,8 @@ Stack_Node::Stack_Node(AVL_Node *P, int n){
 
 AVL_Tree::AVL_Tree(){
 	root = NULL;
+	no_of_comparisions = 0;
+	no_of_rotations = 0;
 }
 
 // function to make clone of a tree recursively
@@ -68,6 +70,7 @@ void AVL_Tree::AVL_Insert(int k){
 	bool flag = false;
 	int a;
 	while(k != P->key){
+		no_of_comparisions++;
 		if(k < P->key){
 			Q = P->LChild;
 			if(Q == NULL){
@@ -107,6 +110,7 @@ void AVL_Tree::AVL_Insert(int k){
 		a = 1;
 	}
 	while(P != Q){
+		no_of_comparisions++;
 		if(k < P->key){
 			P->bf = 1;
 			P = P->LChild;
@@ -127,6 +131,7 @@ void AVL_Tree::AVL_Insert(int k){
 	}else if(S->bf == -a){
 		if(R->bf == -a){
 			//A8
+			no_of_rotations++;
 			P = R;
 			if(a == -1){
 				S->LChild = R->RChild;
@@ -138,6 +143,8 @@ void AVL_Tree::AVL_Insert(int k){
 			S->bf = R->bf = 0;
 		}else if(R->bf == a){
 			//A9
+			no_of_rotations++;
+			no_of_rotations++;
 			if(a == -1){
 				P = R->RChild;
 				R->RChild = P->LChild;
@@ -187,6 +194,7 @@ void AVL_Tree::AVL_Delete(int k){
 	Stack_Node *temp = NULL;
 	bool deleted = false;
 	while(P != NULL){
+		no_of_comparisions++;
 		if(k < P->key){
 			// Visit left subtree
 			stk.push(new Stack_Node(P,-1));
@@ -287,6 +295,7 @@ void AVL_Tree::AVL_Delete(int k){
 	}
 	// Traverse back the path to set balance factors and perform rotation if needed
 	while (!stk.empty()) {
+		no_of_comparisions++;
 		delete(temp);
     	temp = stk.top();
     	stk.pop();
@@ -316,11 +325,13 @@ void AVL_Tree::AVL_Delete(int k){
 						parent->node->RChild = right_child; // when parent is dummy!
 					// case 1a:
 					if(right_child->bf == -1){
+						no_of_rotations++;
 						temp->node->bf = 0;
 						right_child->bf = 0;
 					}
 					// case 3a: It is a part of case 1a with a slight modification in balance factors
 					else if(right_child->bf == 0){
+						no_of_rotations++;
 						temp->node->bf = -1;
 						right_child->bf = +1;
 						break;
@@ -328,6 +339,8 @@ void AVL_Tree::AVL_Delete(int k){
 				}
 				// case 2a: Right-Left Rotation
 				else{
+					no_of_rotations++;
+					no_of_rotations++;
 					//asigning names
 					AVL_Node * A = temp->node;
 					AVL_Node * B = temp->node->RChild;
@@ -386,11 +399,13 @@ void AVL_Tree::AVL_Delete(int k){
 						parent->node->RChild = left_child;
 					// case 1b:
 					if(left_child->bf == +1){
+						no_of_rotations++;
 						temp->node->bf = 0;
 						left_child->bf = 0;
 					}
 					// case 3b: It is a part of case 1b with a slight modification in balance factors
 					else if(left_child->bf == 0){
+						no_of_rotations++;
 						temp->node->bf = +1;
 						left_child->bf = -1;
 						break;
@@ -398,6 +413,8 @@ void AVL_Tree::AVL_Delete(int k){
 				}
 				// case 2b:
 				else{
+					no_of_rotations++;
+					no_of_rotations++;
 					//asigning names
 					AVL_Node * A = temp->node;
 					AVL_Node * B = A->LChild;
@@ -569,6 +586,14 @@ double AVL_Tree::get_average_height(){
 		return (1.0*sum/count);
 	}
 	return 0;
+}
+
+int AVL_Tree::get_no_of_comparisions(){
+	return no_of_comparisions;
+}
+
+int AVL_Tree::get_no_of_rotations(){
+	return no_of_rotations;
 }
 
 // Destructor

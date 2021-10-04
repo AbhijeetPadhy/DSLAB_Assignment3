@@ -308,9 +308,9 @@ void performance_comparator(){
 				if(success == 1){
 					cout<<"BST has been loaded from file"<<endl;
 					//cout<<"Number of rotations: "<<bst_object->get_no_of_rotations()<<endl;
-					cout<<"The height of the BST is "<<bst_object->get_height()<<endl;
-					cout<<"The average height of each node is "<<bst_object->get_average_height()<<endl;
-					cout<<"The number of key comparisions done during insert and delete operations is "<<bst_object->get_no_of_comparisions()<<endl;
+					cout<<"The height of the BST: "<<bst_object->get_height()<<endl;
+					cout<<"The average height of each node: "<<bst_object->get_average_height()<<endl;
+					cout<<"The number of key comparisions[insert & delete]: "<<bst_object->get_no_of_comparisions()<<endl;
 				}
 				delete(bst_object);
 				break;
@@ -319,10 +319,10 @@ void performance_comparator(){
 				success = take_input_from_file(avl_tree_object);
 				if(success == 1){
 					cout<<"AVL Tree has been loaded from file"<<endl;
-					//cout<<"Number of rotations: "<<avl_tree_object->get_no_of_rotations()<<endl;
-					cout<<"The height of the BST is "<<avl_tree_object->get_height()<<endl;
-					cout<<"The average height of each node is "<<avl_tree_object->get_average_height()<<endl;
-					//cout<<"The number of key comparisions done during insert and delete operations is "<<avl_tree_object->get_no_of_comparisions()<<endl;
+					cout<<"Number of rotations: "<<avl_tree_object->get_no_of_rotations()<<endl;
+					cout<<"The height of the BST: "<<avl_tree_object->get_height()<<endl;
+					cout<<"The average height of each node: "<<avl_tree_object->get_average_height()<<endl;
+					cout<<"The number of key comparisions[insert & delete]: "<<avl_tree_object->get_no_of_comparisions()<<endl;
 				}
 				delete(avl_tree_object);
 				break;
@@ -332,9 +332,9 @@ void performance_comparator(){
 				if(success == 1){
 					cout<<"Treap has been loaded from file"<<endl;
 					cout<<"Number of rotations: "<<treap_obj->get_no_of_rotations()<<endl;
-					cout<<"The height of the treap is "<<treap_obj->get_height()<<endl;
-					cout<<"The average height of each node is "<<treap_obj->average_height()<<endl;
-					cout<<"The number of key comparisions done during insert and delete operations is "<<treap_obj->get_no_of_comparisions()<<endl;
+					cout<<"The height of the treap: "<<treap_obj->get_height()<<endl;
+					cout<<"The average height of each node: "<<treap_obj->average_height()<<endl;
+					cout<<"The number of key comparisions[insert & delete]: "<<treap_obj->get_no_of_comparisions()<<endl;
 				}
 				delete(treap_obj);
 				break;

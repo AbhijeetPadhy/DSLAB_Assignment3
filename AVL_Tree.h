@@ -27,6 +27,8 @@ class AVL_Tree{
 		int count_of_nodes(AVL_Node*);
 		int sum_of_height_of_nodes(AVL_Node*);
 		int get_height(AVL_Node*);
+		int no_of_comparisions;
+		int no_of_rotations;
 	
 	public:
 		AVL_Tree();
@@ -38,6 +40,8 @@ class AVL_Tree{
 		void AVL_Print(const char *filename);
 		int get_height();
 		double get_average_height();
+		int get_no_of_comparisions();
+		int get_no_of_rotations();
 		~AVL_Tree();
 };
 
