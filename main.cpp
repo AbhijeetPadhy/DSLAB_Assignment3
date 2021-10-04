@@ -354,6 +354,69 @@ void performance_comparator(){
 	return;
 }
 
+void performance_comparision_automator(){
+	int arr[] = {500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000};
+	int N = 20;
+	treap *treap_obj;
+	AVL_Tree *avl_tree_object;
+	TreeAPI *bst_object;
+	int element;
+	int choice = -1;
+	int success1 = 0, success2 = 0, success3 = 0;
+	
+	cout<<"N1\tN2\tN3\tN4\tN5\tN6\tN7\tN8\tN9\tN10\tN11\tN12"<<endl; 
+	//N1 = No of operations
+	//N2 = BST_height\t 
+	//N3 = AVL_height\t 
+	//N4 = Treap_height\t 
+	//N5 = BST_avg_ht\t 
+	//N6 = AVL_avg_ht\t 
+	//N7 = Treap_avg_ht\t"
+	//N8 = BST_Comp
+	//N9 = AVL_Comp
+	//N10 = Treap_comp
+	//N11 = AVL_rot
+	//N12 = Treap_rot
+	for(int i=0;i<N;i++){
+		NO_OF_OPERATIONS = arr[i];
+		generate_test_case();
+		
+		bst_object = new TreeAPI();
+		success1 = take_input_from_file(bst_object);
+		
+		avl_tree_object = new AVL_Tree();
+		success2 = take_input_from_file(avl_tree_object);
+		
+		treap_obj = new treap();
+		success3 = take_input_from_file(treap_obj);
+		
+		if(success1 == 1 && success2 == 1 && success3 == 1){
+			cout<<arr[i]<<'\t';
+		
+			cout<<bst_object->get_height()<<'\t';
+			cout<<avl_tree_object->get_height()<<'\t';
+			cout<<treap_obj->get_height()<<'\t';
+			
+			cout<<bst_object->get_average_height()<<'\t';
+			cout<<avl_tree_object->get_average_height()<<'\t';
+			cout<<treap_obj->average_height()<<'\t';
+			
+			cout<<bst_object->get_no_of_comparisions()<<'\t';
+			cout<<avl_tree_object->get_no_of_comparisions()<<'\t';
+			cout<<treap_obj->get_no_of_comparisions()<<'\t';
+			
+			cout<<avl_tree_object->get_no_of_rotations()<<'\t';
+			cout<<treap_obj->get_no_of_rotations()<<'\t';
+			
+			cout<<endl;
+		}
+		
+		delete(bst_object);
+		delete(avl_tree_object);
+		delete(treap_obj);
+	}
+}
+
 int main(int argc, char** argv) {
 	srand(time(0));
 	int choice = -1;
@@ -363,6 +426,7 @@ int main(int argc, char** argv) {
 		cout<<"--------------------------------------------------------"<<endl;
 		cout<<"1. Go to Treap operations"<<endl;
 		cout<<"2. Comparision operations"<<endl;
+		cout<<"3. Comparision operations automator"<<endl;
 		cout<<"\nPress 0 to quit.";
 		cout<<"\nEnter Your Choice: ";
 		cin>>choice;
@@ -375,6 +439,9 @@ int main(int argc, char** argv) {
 				break;
 			case 2:
 				performance_comparator();
+				break;
+			case 3:
+				performance_comparision_automator();
 				break;
 			default:
 				cout<<"Incorrect Choice!"<<endl;
