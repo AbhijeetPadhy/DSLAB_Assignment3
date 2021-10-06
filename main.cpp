@@ -14,7 +14,10 @@ int NO_OF_OPERATIONS = 10000;
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
-void generate_test_case(){
+
+
+// ratio is a number such that we will have INSERT:DELETE = ratio:(10-ratio)
+void generate_test_case(int ratio){
 	FILE *fptr;
 	int insert[NO_OF_OPERATIONS];
 	int insert_count = 0;
@@ -35,8 +38,8 @@ void generate_test_case(){
 	
 	// Generate random cases for next cases
 	for(int i=1;i<NO_OF_OPERATIONS;i++){
-		operation = rand()%2;
-		if(operation == 0){
+		operation = rand()%10;
+		if(operation < ratio){
 			element = rand()%NO_OF_OPERATIONS;
 			insert[insert_count] = element;
 			fprintf(fptr, "INSERT %d\n", element);
@@ -50,6 +53,9 @@ void generate_test_case(){
 	fclose(fptr);
 }
 
+void generate_test_case(){
+	generate_test_case(5);
+}
 
 int take_input_from_file(treap *treap_obj){
 	FILE *fptr;
@@ -354,9 +360,9 @@ void performance_comparator(){
 	return;
 }
 
-void performance_comparision_automator(){
-	int arr[] = {500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000};
-	int N = 20;
+void performance_comparision_automator(int ratio){
+	int arr[] = {10,50,100,300,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000};
+	int N = sizeof(arr)/sizeof(int);
 	treap *treap_obj;
 	AVL_Tree *avl_tree_object;
 	TreeAPI *bst_object;
@@ -364,7 +370,7 @@ void performance_comparision_automator(){
 	int choice = -1;
 	int success1 = 0, success2 = 0, success3 = 0;
 	
-	cout<<"N1\tN2\tN3\tN4\tN5\tN6\tN7\tN8\tN9\tN10\tN11\tN12"<<endl; 
+	cout<<"\nN1\tN2\tN3\tN4\tN5\tN6\tN7\tN8\tN9\tN10\tN11\tN12"<<endl; 
 	//N1 = No of operations
 	//N2 = BST_height\t 
 	//N3 = AVL_height\t 
@@ -379,7 +385,7 @@ void performance_comparision_automator(){
 	//N12 = Treap_rot
 	for(int i=0;i<N;i++){
 		NO_OF_OPERATIONS = arr[i];
-		generate_test_case();
+		generate_test_case(ratio);
 		
 		bst_object = new TreeAPI();
 		success1 = take_input_from_file(bst_object);
@@ -420,6 +426,8 @@ void performance_comparision_automator(){
 int main(int argc, char** argv) {
 	srand(time(0));
 	int choice = -1;
+	int ratios[] = {4,5,6,7,8,9};
+	int N = sizeof(ratios)/sizeof(int);
 	
 	do{
 		cout<<"\nThis is an implementation of Assignment 3 of DS LAB"<<endl;
@@ -441,7 +449,11 @@ int main(int argc, char** argv) {
 				performance_comparator();
 				break;
 			case 3:
-				performance_comparision_automator();
+				for(int i=0;i<N;i++){
+					cout<<"---------RATIO : "<< ratios[i] << ":" << (10-ratios[i])<<" ---------"<<endl;
+					performance_comparision_automator(ratios[i]);
+					cout<<endl;
+				}	
 				break;
 			default:
 				cout<<"Incorrect Choice!"<<endl;

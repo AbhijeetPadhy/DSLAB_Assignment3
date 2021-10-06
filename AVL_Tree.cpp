@@ -130,7 +130,7 @@ void AVL_Tree::AVL_Insert(int k){
 		return;
 	}else if(S->bf == -a){
 		if(R->bf == -a){
-			//A8
+			//A8 -- single rotation
 			no_of_rotations++;
 			P = R;
 			if(a == -1){
@@ -142,7 +142,7 @@ void AVL_Tree::AVL_Insert(int k){
 			}
 			S->bf = R->bf = 0;
 		}else if(R->bf == a){
-			//A9
+			//A9 -- double rotation
 			no_of_rotations++;
 			no_of_rotations++;
 			if(a == -1){
@@ -588,11 +588,11 @@ double AVL_Tree::get_average_height(){
 	return 0;
 }
 
-int AVL_Tree::get_no_of_comparisions(){
+long long int AVL_Tree::get_no_of_comparisions(){
 	return no_of_comparisions;
 }
 
-int AVL_Tree::get_no_of_rotations(){
+long long int AVL_Tree::get_no_of_rotations(){
 	return no_of_rotations;
 }
 
