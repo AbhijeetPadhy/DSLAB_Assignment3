@@ -1,7 +1,9 @@
 #include "treap.h"
 
+// Name of the file where test case will be stored
 const char TEST[] = "test_case.txt";
 
+// constructor
 treap_node::treap_node(){
 	key = 0;
 	priority = 0;
@@ -10,6 +12,7 @@ treap_node::treap_node(){
 	RChild = NULL;
 }
 
+// constructor
 treap_node::treap_node(int k, int p){
 	key = k;
 	priority = p;
@@ -18,6 +21,7 @@ treap_node::treap_node(int k, int p){
 	RChild = NULL;
 }
 
+// function to correct heights of required nodes during insert or delete
 void treap_node::rectify_height(){
 	int left_height = 0;
 	int right_height = 0;
@@ -26,10 +30,12 @@ void treap_node::rectify_height(){
 	height = 1 + ((left_height > right_height)? left_height : right_height);  
 }
 
+// function to return number of comparisons
 long long int treap::get_no_of_comparisions(){
 	return no_of_comparisions;
 }
 
+// function to return average height of all the nodes of the tree
 long double treap::average_height(){
 	int count = get_count(root);
 	if(count != 0)
@@ -37,6 +43,7 @@ long double treap::average_height(){
 	return 0;
 }
 
+// function to return number of nodes present in the treap
 int treap::get_count(treap_node *node){
 	int LCount = 0;
 	int RCount = 0;
@@ -47,6 +54,7 @@ int treap::get_count(treap_node *node){
 	return (1 + LCount + RCount);
 }
 
+// function to return the sum of heights of all nodes
 long long int treap::get_sum_of_heights(treap_node *node){
 	int lheight = 0;
 	int rheight = 0;
@@ -57,26 +65,31 @@ long long int treap::get_sum_of_heights(treap_node *node){
 	return (node->height + lheight + rheight);
 }
 
+// constructor
 treap::treap(){
 	root = NULL;
 	no_of_rotations = 0;
 	no_of_comparisions = 0;
 }
 
+// function to return height of tree
 int treap::get_height(){
 	if(root != NULL)
 		return root->height;
 	return 0;
 }
 
+//Function to return number of rotations
 long long int treap::get_no_of_rotations(){
 	return no_of_rotations;
 }
 
+//Function to search key
 bool treap::search_key(int k){
 	return search_key(root,k);
 }
 
+//Function to search key
 bool treap::search_key(treap_node *root, int k){
 	if(root == NULL)
 		return false;
@@ -87,15 +100,18 @@ bool treap::search_key(treap_node *root, int k){
 	return true;
 }
 
+// Function to insert an element
 void treap::insert(int k){
 	int prio = rand()%100;
 	root = insert(root, k, prio);
 }
 
+// Function to insert an element
 void treap::insert(int k, int p){
 	root = insert(root, k, p);
 }
 
+// Function to insert an element
 treap_node * treap::insert(treap_node *root, int k, int p){
 	treap_node *node = NULL;
 	if(root == NULL){
@@ -146,10 +162,13 @@ treap_node * treap::insert(treap_node *root, int k, int p){
 	return root; 
 }
 
+//function to delete an element
 treap_node * treap::delete_key(int k){
 	root = delete_key(root, k);
 }
 
+//function to move the element found to be deleted downwards till it becomes a leaf using 
+//left or right rotations
 treap_node * treap::handle_priority_downwards(treap_node *root){
 	if(root == NULL)
 		return NULL;
@@ -194,6 +213,7 @@ treap_node * treap::handle_priority_downwards(treap_node *root){
 	
 }
 
+//function to delete an element
 treap_node * treap::delete_key(treap_node *root, int k){
 	treap_node *new_root = NULL;
 	if(root == NULL)
