@@ -137,20 +137,19 @@ void treap_executor(){
 		cout<<"\nThis is an implementation of Treap"<<endl;
 		cout<<"--------------------------------------------------------"<<endl;
 		cout<<"1. Insert an element"<<endl;
-		cout<<"2. Delete an element"<<endl;
-		cout<<"3. Search for an element"<<endl;
-		cout<<"4. Print an image of the tree"<<endl;
-		cout<<"5. Insert a series of elements"<<endl;
-		cout<<"6. Clone a tree and print it."<<endl;
-		cout<<"7. Generate test cases"<<endl;
-		cout<<"8. Take input from file"<<endl;
-		cout<<"9. Check number of rotations"<<endl;
-		cout<<"10.Clear Treap"<<endl;
-		cout<<"11.Insert with priority"<<endl;
-		cout<<"12.Print height of the treap"<<endl;
-		cout<<"13.Display average height of each node"<<endl;
-		cout<<"14.Update the Number of operations that should be included in test case file."<<endl;
-		cout<<"15.Display number of key comparisions"<<endl;
+		cout<<"2. Insert a series of elements"<<endl;
+		cout<<"3. Insert with priority"<<endl;
+		cout<<"4. Delete an element"<<endl;
+		cout<<"5. Search for an element"<<endl;
+		cout<<"6. Print an image of the tree"<<endl;
+		cout<<"7. Update the Number of operations that \n   should be included in test case file."<<endl;
+		cout<<"8. Generate test cases"<<endl;
+		cout<<"9. Take input from file"<<endl;
+		cout<<"10.Print height of the treap"<<endl;
+		cout<<"11.Display average height of each node"<<endl;
+		cout<<"12.Display number of key comparisions"<<endl;
+		cout<<"13.Check number of rotations"<<endl;
+		cout<<"14.Clear Treap"<<endl;
 		cout<<"\nPress 0 to quit.";
 		cout<<"\nEnter Your Choice: ";
 		cin>>choice;
@@ -170,32 +169,6 @@ void treap_executor(){
 				}
 				break;
 			case 2:
-				cout<<"Please enter the element you want to delete: ";
-				cin>>element;
-				try{
-					treap_obj->delete_key(element);
-					cout<<"Element "<<element<<" has been successfully deleted!"<<endl;
-				}catch(const char* msg){
-					cerr<<"\n---------WARNING----------"<<endl;
-					cerr<<"Exception caught at delete_key() method :: "<<msg<<endl;
-				}
-				
-				break;
-			case 3:
-				cout<<"Please enter the element you want to search: ";
-				cin>>element;
-				if(treap_obj->search_key(element))
-					cout<<"The searched element is found!"<<endl;
-				else
-					cout<<"The searched element is not found!"<<endl;
-				break;
-			case 4: 
-				cout<<"An image of the tree can be produced by using the following command: "<<endl;
-				cout<<"dot -Tpng graph.gv -o graph.png"<<endl;
-				cout<<"The image will be named graph.png and will be present in the same path"<<endl;
-				treap_obj->print_treap(str);
-				break;
-			case 5:
 				cout<<"Enter the number of elements you want to insert: ";
 				cin>>element;
 				cout<<"Insert all the elements:"<<endl;
@@ -204,41 +177,7 @@ void treap_executor(){
 					treap_obj->insert(element2);
 				}
 				break;
-			case 6:
-				cout<<"Cloning the tree..."<<endl;
-				clone = new treap(*treap_obj);
-				cout<<"Printing the tree. Check the filename cloned_graph.gv"<<endl;
-				clone->print_treap("cloned_graph.gv");
-				cout<<"Operation Successful. Please check the file cloned_graph.gv"<<endl;
-				break;
-			case 7:
-				generate_test_case();
-				cout<<"Test case file named test_case.txt has been created"<<endl;
-				break;
-			case 8:
-				delete(treap_obj);
-				treap_obj = new treap();
-				success = take_input_from_file(treap_obj);
-				if(success == 1){
-					cout<<"Treap has been loaded from file"<<endl;
-					cout<<"Number of rotations: "<<treap_obj->get_no_of_rotations()<<endl;
-					cout<<"The height of the treap is "<<treap_obj->get_height()<<endl;
-					cout<<"The average height of each node is "<<treap_obj->average_height()<<endl;
-					cout<<"The number of key comparisions done during insert and delete operations is "<<treap_obj->get_no_of_comparisions()<<endl;
-				}
-					
-				else
-					cout<<"Encountered error loading Treap from file"<<endl;
-				break;
-			case 9:
-				cout<<"Number of rotations: "<<treap_obj->get_no_of_rotations()<<endl;
-				break;
-			case 10:
-				delete(treap_obj);
-				treap_obj = new treap();
-				cout<<"The Treap has been cleared!"<<endl;
-				break;
-			case 11:
+			case 3:
 				cout<<"Please enter the element you want to insert: ";
 				cin>>element;
 				cout<<"Please enter the priority of the element: ";
@@ -251,13 +190,32 @@ void treap_executor(){
 					cerr<<"Exception caught at insert() method :: "<<msg<<endl;
 				}
 				break;
-			case 12:
-				cout<<"The height of the treap is "<<treap_obj->get_height()<<endl;
+			case 4:
+				cout<<"Please enter the element you want to delete: ";
+				cin>>element;
+				try{
+					treap_obj->delete_key(element);
+					cout<<"Element "<<element<<" has been successfully deleted!"<<endl;
+				}catch(const char* msg){
+					cerr<<"\n---------WARNING----------"<<endl;
+					cerr<<"Exception caught at delete_key() method :: "<<msg<<endl;
+				}
 				break;
-			case 13:
-				cout<<"The average height of each node is "<<treap_obj->average_height()<<endl;
+			case 5:
+				cout<<"Please enter the element you want to search: ";
+				cin>>element;
+				if(treap_obj->search_key(element))
+					cout<<"The searched element is found!"<<endl;
+				else
+					cout<<"The searched element is not found!"<<endl;
 				break;
-			case 14:
+			case 6: 
+				cout<<"An image of the tree can be produced by using the following command: "<<endl;
+				cout<<"dot -Tpng graph.gv -o graph.png"<<endl;
+				cout<<"The image will be named graph.png and will be present in the same path"<<endl;
+				treap_obj->print_treap(str);
+				break;
+			case 7:
 				cout<<"Enter the number of operations: ";
 				cin>>element;
 				if(element>1){
@@ -265,9 +223,42 @@ void treap_executor(){
 					cout<<"The NO_OF_OPERATIONS has been updated to "<<NO_OF_OPERATIONS<<endl;
 				}
 				break;
-			case 15:
+			case 8:
+				generate_test_case();
+				cout<<"Test case file named test_case.txt has been created"<<endl;
+				break;
+			case 9:
+				delete(treap_obj);
+				treap_obj = new treap();
+				success = take_input_from_file(treap_obj);
+				if(success == 1){
+					cout<<"Treap has been loaded from file"<<endl;
+					cout<<"Number of rotations: "<<treap_obj->get_no_of_rotations()<<endl;
+					cout<<"The height of the treap is "<<treap_obj->get_height()<<endl;
+					cout<<"The average height of each node is "<<treap_obj->average_height()<<endl;
+					cout<<"The number of key comparisions done during insert and delete operations is "<<treap_obj->get_no_of_comparisions()<<endl;
+				}	
+				else
+					cout<<"Encountered error loading Treap from file"<<endl;
+				break;
+			case 10:
+				cout<<"The height of the treap is "<<treap_obj->get_height()<<endl;
+				break;
+			case 11:
+				cout<<"The average height of each node is "<<treap_obj->average_height()<<endl;
+				break;
+			
+			case 12:
 				cout<<"The number of key comparisions done during insert and delete operations is "<<treap_obj->get_no_of_comparisions()<<endl;
 				break;	
+			case 13:
+				cout<<"Number of rotations: "<<treap_obj->get_no_of_rotations()<<endl;
+				break;
+			case 14:
+				delete(treap_obj);
+				treap_obj = new treap();
+				cout<<"The Treap has been cleared!"<<endl;
+				break;
 			default:
 				cout<<"Incorrect Choice!"<<endl;
 				break;
@@ -309,10 +300,12 @@ void performance_comparator(){
 				success = take_input_from_file(bst_object);
 				if(success == 1){
 					cout<<"BST has been loaded from file"<<endl;
-					//cout<<"Number of rotations: "<<bst_object->get_no_of_rotations()<<endl;
-					cout<<"The height of the BST: "<<bst_object->get_height()<<endl;
+					cout<<"\nThe height of the BST: "<<bst_object->get_height()<<endl;
 					cout<<"The average height of each node: "<<bst_object->get_average_height()<<endl;
 					cout<<"The number of key comparisions[insert & delete]: "<<bst_object->get_no_of_comparisions()<<endl;
+					cout<<"\nAn image of the tree can be produced by using the following command: "<<endl;
+					cout<<"dot -Tpng graph.gv -o graph.png"<<endl;
+					cout<<"The image will be named graph.png and will be present in the same path"<<endl;
 				}
 				delete(bst_object);
 				break;
@@ -322,9 +315,13 @@ void performance_comparator(){
 				if(success == 1){
 					cout<<"AVL Tree has been loaded from file"<<endl;
 					cout<<"Number of rotations: "<<avl_tree_object->get_no_of_rotations()<<endl;
-					cout<<"The height of the BST: "<<avl_tree_object->get_height()<<endl;
+					cout<<"\nThe height of the BST: "<<avl_tree_object->get_height()<<endl;
 					cout<<"The average height of each node: "<<avl_tree_object->get_average_height()<<endl;
 					cout<<"The number of key comparisions[insert & delete]: "<<avl_tree_object->get_no_of_comparisions()<<endl;
+					cout<<"Number of rotations: "<<avl_tree_object->get_no_of_rotations()<<endl;
+					cout<<"\nAn image of the tree can be produced by using the following command: "<<endl;
+					cout<<"dot -Tpng graph.gv -o graph.png"<<endl;
+					cout<<"The image will be named graph.png and will be present in the same path"<<endl;
 				}
 				delete(avl_tree_object);
 				break;
@@ -334,9 +331,13 @@ void performance_comparator(){
 				if(success == 1){
 					cout<<"Treap has been loaded from file"<<endl;
 					cout<<"Number of rotations: "<<treap_obj->get_no_of_rotations()<<endl;
-					cout<<"The height of the treap: "<<treap_obj->get_height()<<endl;
+					cout<<"\nThe height of the treap: "<<treap_obj->get_height()<<endl;
 					cout<<"The average height of each node: "<<treap_obj->average_height()<<endl;
 					cout<<"The number of key comparisions[insert & delete]: "<<treap_obj->get_no_of_comparisions()<<endl;
+					cout<<"Number of rotations: "<<treap_obj->get_no_of_rotations()<<endl;
+					cout<<"\nAn image of the tree can be produced by using the following command: "<<endl;
+					cout<<"dot -Tpng graph.gv -o graph.png"<<endl;
+					cout<<"The image will be named graph.png and will be present in the same path"<<endl;
 				}
 				delete(treap_obj);
 				break;
