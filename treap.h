@@ -8,11 +8,12 @@
 #include<string.h>
 
 class treap_node{
-	int key;
-	int priority;
-	int height;
-	treap_node *LChild;
-	treap_node *RChild;
+	private:
+		int key;
+		int priority;
+		int height;
+		treap_node *LChild;
+		treap_node *RChild;
 	
 	public:
 		treap_node();
@@ -39,7 +40,7 @@ class treap{
 		treap();
 		void insert(int);
 		void insert(int k, int p);
-		treap_node * delete_key(int);
+		void delete_key(int);
 		bool search_key(int);
 		void print_treap(const char *filename);
 		long long int get_no_of_rotations();

@@ -163,7 +163,7 @@ treap_node * treap::insert(treap_node *root, int k, int p){
 }
 
 //function to delete an element
-treap_node * treap::delete_key(int k){
+void treap::delete_key(int k){
 	root = delete_key(root, k);
 }
 
