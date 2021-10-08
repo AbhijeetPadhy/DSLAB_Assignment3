@@ -33,7 +33,7 @@ void generate_test_case(int ratio){
 	//First operation must always be insert
 	element = rand()%NO_OF_OPERATIONS;
 	insert[insert_count] = element;
-	fprintf(fptr, "INSERT %d\n", element);
+	fprintf(fptr, "Insert %d\n", element);
 			insert_count++;
 	
 	// Generate random cases for next cases
@@ -42,12 +42,12 @@ void generate_test_case(int ratio){
 		if(operation < ratio){
 			element = rand()%NO_OF_OPERATIONS;
 			insert[insert_count] = element;
-			fprintf(fptr, "INSERT %d\n", element);
+			fprintf(fptr, "Insert %d\n", element);
 			insert_count++;
 		}else{
 			int index = rand()%insert_count;
 			element = insert[index];
-			fprintf(fptr, "DELETE %d\n", element);
+			fprintf(fptr, "Delete %d\n", element);
 		}
 	}
 	fclose(fptr);
@@ -70,9 +70,9 @@ int take_input_from_file(treap *treap_obj){
 	for(int i=0;i<no_of_operations;i++){
 		fscanf(fptr, "%s", &operation);
 		fscanf(fptr, "%d", &element);
-		if(strcmp(operation,"INSERT") == 0)
+		if(strcmp(operation,"Insert") == 0)
 			treap_obj->insert(element);
-		else if(strcmp(operation,"DELETE") == 0)
+		else if(strcmp(operation,"Delete") == 0)
 			treap_obj->delete_key(element);
 	}
 	treap_obj->print_treap("graph.gv");
@@ -92,11 +92,11 @@ int take_input_from_file(AVL_Tree *avl_tree_object){
 	for(int i=0;i<no_of_operations;i++){
 		fscanf(fptr, "%s", &operation);
 		fscanf(fptr, "%d", &element);
-		if(strcmp(operation,"INSERT") == 0)
+		if(strcmp(operation,"Insert") == 0)
 			try{
 				avl_tree_object->AVL_Insert(element);
 			}catch(const char* msg){}
-		else if(strcmp(operation,"DELETE") == 0)
+		else if(strcmp(operation,"Delete") == 0)
 			try{
 				avl_tree_object->AVL_Delete(element);
 			}catch(const char* msg){}
@@ -118,9 +118,9 @@ int take_input_from_file(TreeAPI *bst_object){
 	for(int i=0;i<no_of_operations;i++){
 		fscanf(fptr, "%s", &operation);
 		fscanf(fptr, "%d", &element);
-		if(strcmp(operation,"INSERT") == 0)
+		if(strcmp(operation,"Insert") == 0)
 			bst_object->insert(element);
-		else if(strcmp(operation,"DELETE") == 0)
+		else if(strcmp(operation,"Delete") == 0)
 			bst_object->deleteElement(element);
 	}
 	bst_object->printTree();
