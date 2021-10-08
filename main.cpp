@@ -67,9 +67,13 @@ int take_input_from_file(treap *treap_obj){
 		fscanf(fptr, "%s", &operation);
 		fscanf(fptr, "%d", &element);
 		if(strcmp(operation,"Insert") == 0)
-			treap_obj->insert(element);
+			try{
+				treap_obj->insert(element);
+			}catch(const char* msg){}
 		else if(strcmp(operation,"Delete") == 0)
-			treap_obj->delete_key(element);
+			try{
+				treap_obj->delete_key(element);
+			}catch(const char* msg){}	
 	}
 	treap_obj->print_treap("graph.gv");
 	return 1;

@@ -158,6 +158,8 @@ treap_node * treap::insert(treap_node *root, int k, int p){
 			root->rectify_height();
 		}
 		return root;
+	}else{
+		throw "Element Already Exists!";
 	}	
 	return root; 
 }
@@ -216,8 +218,10 @@ treap_node * treap::handle_priority_downwards(treap_node *root){
 //function to delete an element
 treap_node * treap::delete_key(treap_node *root, int k){
 	treap_node *new_root = NULL;
-	if(root == NULL)
+	if(root == NULL){
+		throw "Element Does Not Exist!";
 		return NULL;
+	}
 	no_of_comparisions++;
 	if(k < root->key){
 		root->LChild = delete_key(root->LChild, k);
