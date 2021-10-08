@@ -22,16 +22,18 @@ class treap_node{
 };
 
 class treap{
-	treap_node *root;
-	long long int no_of_rotations;
-	long long int no_of_comparisions;
-	void printTreapUtil(treap_node* node, FILE *fptr);
-	treap_node *delete_key(treap_node *, int);
-	treap_node *handle_priority_downwards(treap_node *);
-	bool search_key(treap_node *, int);
-	treap_node * insert(treap_node *, int, int);
-	int get_count(treap_node *);
-	long long int get_sum_of_heights(treap_node *);
+	private:
+		treap_node *root;
+		long long int no_of_rotations;
+		long long int no_of_comparisions;
+		void printTreapUtil(treap_node* node, FILE *fptr);
+		treap_node *delete_key(treap_node *, int);
+		treap_node *handle_priority_downwards(treap_node *);
+		bool search_key(treap_node *, int);
+		treap_node * insert(treap_node *, int, int);
+		int get_count(treap_node *);
+		long long int get_sum_of_heights(treap_node *);
+		void clear_tree(treap_node *node);
 	
 	public:
 		treap();
@@ -44,7 +46,7 @@ class treap{
 		long long int get_no_of_comparisions();
 		int get_height();
 		long double average_height();
-		
+		~treap();
 };
 
 #endif

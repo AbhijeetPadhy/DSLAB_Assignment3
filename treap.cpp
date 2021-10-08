@@ -243,3 +243,18 @@ void treap::print_treap(const char *filename){
 	fclose(fptr);
 }
 
+// Function to recursively delete nodes of a tree
+void treap::clear_tree(treap_node *node){
+	if(node == NULL)
+		return;
+	clear_tree(node->LChild);
+	clear_tree(node->RChild);
+	delete(node);
+	return;
+}
+
+// Destructor
+treap::~treap(){
+	clear_tree(root);
+	root = NULL;
+}

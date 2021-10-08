@@ -32,11 +32,13 @@ class ThreadedBST{
 		int count_of_nodes();
 		int sum_of_height_of_nodes();
 		int get_no_of_comparisions();
+		void clear_tree();
 };
 
 // An API which is provided to do operations on a tree for ease of access
 class TreeAPI{
-	ThreadedBST *root;
+	private:
+		ThreadedBST *root;
 	public:
 		TreeAPI();
 		void insert(int val);
@@ -45,6 +47,7 @@ class TreeAPI{
 		int get_height();
 		double get_average_height();
 		int get_no_of_comparisions();
+		~TreeAPI();
 };
 
 #endif

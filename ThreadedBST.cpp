@@ -312,3 +312,22 @@ int TreeAPI::get_no_of_comparisions(){
 		return root->get_no_of_comparisions();
 	return 0;
 }
+
+void ThreadedBST::clear_tree(){
+	if(leftThread == true){
+		leftChild->clear_tree();
+		delete(leftChild);
+	}
+	if(rightThread == true){
+		rightChild->clear_tree();
+		delete(rightChild);
+	}
+}
+
+// Destructor
+TreeAPI::~TreeAPI(){
+	if(root != NULL){
+		root->clear_tree();
+		delete(root);
+	}
+}
