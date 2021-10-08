@@ -12,10 +12,6 @@ using namespace std;
 const char TEST[] = "test_case.txt";
 int NO_OF_OPERATIONS = 10000;
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
-
-
-
 // ratio is a number such that we will have INSERT:DELETE = ratio:(10-ratio)
 void generate_test_case(int ratio){
 	FILE *fptr;

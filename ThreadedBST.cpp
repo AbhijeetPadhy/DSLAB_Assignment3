@@ -314,11 +314,11 @@ int TreeAPI::get_no_of_comparisions(){
 }
 
 void ThreadedBST::clear_tree(){
-	if(leftThread == true){
+	if(leftThread == true && leftChild != NULL){
 		leftChild->clear_tree();
 		delete(leftChild);
 	}
-	if(rightThread == true){
+	if(rightThread == true && rightChild != NULL){
 		rightChild->clear_tree();
 		delete(rightChild);
 	}
@@ -330,4 +330,5 @@ TreeAPI::~TreeAPI(){
 		root->clear_tree();
 		delete(root);
 	}
+	root = NULL;
 }
