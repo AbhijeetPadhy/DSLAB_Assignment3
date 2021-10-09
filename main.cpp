@@ -50,7 +50,34 @@ void generate_test_case(int ratio){
 }
 
 void generate_test_case(){
-	generate_test_case(5);
+	int choice = 0, ratio=5;
+	do{
+		cout<<"\nGeneration of Test Case"<<endl;
+		cout<<"--------------------------------------------------------"<<endl;
+		cout<<"1. Generate an equally likely test case(Insert:Delete = 5:5)"<<endl;
+		cout<<"2. Generate a test case with a specific ratio for Insert:Delete"<<endl;
+		cout<<"\nPress 0 to quit.";
+		cout<<"\nEnter Your Choice: ";
+		cin>>choice;
+		switch(choice){
+			case 1:
+				cout<<"\nA test case file will be generated having Insert:Delete in the ratio 5:5"<<endl;
+				generate_test_case(5);
+				break;
+			case 2:
+				cout<<"\nChoose a number between 1 and 9 inclusive."<<endl;
+				cout<<"If you choose 3, a test case file having Insert:Delete in ration 3:7 will be created"<<endl;
+				cout<<"Enter a number between 1 and 9 inclusive: ";
+				
+				cin>>ratio;
+				cout<<"\nA test case file will be generated having Insert:Delete in the ratio "<< ratio << ":"<< (10-ratio)<<endl;
+				generate_test_case(ratio);
+				break;
+			default:
+				cout<<"Incorrect Choice!"<<endl;
+				break;
+		}
+	}while(choice != 0 && choice != 1 && choice != 2);
 }
 
 int take_input_from_file(treap *treap_obj){
