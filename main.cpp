@@ -60,18 +60,22 @@ void generate_test_case(){
 		cout<<"\nEnter Your Choice: ";
 		cin>>choice;
 		switch(choice){
+			case 0:
+				break;
 			case 1:
 				cout<<"\nA test case file will be generated having Insert:Delete in the ratio 5:5"<<endl;
 				generate_test_case(5);
+				cout<<"Test case file named test_case.txt has been created"<<endl;
 				break;
 			case 2:
 				cout<<"\nChoose a number between 1 and 9 inclusive."<<endl;
-				cout<<"If you choose 3, a test case file having Insert:Delete in ration 3:7 will be created"<<endl;
+				cout<<"If you choose 3, a test case file having Insert:Delete in ratio 3:7 will be created"<<endl;
 				cout<<"Enter a number between 1 and 9 inclusive: ";
 				
 				cin>>ratio;
 				cout<<"\nA test case file will be generated having Insert:Delete in the ratio "<< ratio << ":"<< (10-ratio)<<endl;
 				generate_test_case(ratio);
+				cout<<"Test case file named test_case.txt has been created"<<endl;
 				break;
 			default:
 				cout<<"Incorrect Choice!"<<endl;
@@ -266,7 +270,6 @@ void treap_executor(){
 				break;
 			case 8:
 				generate_test_case();
-				cout<<"Test case file named test_case.txt has been created"<<endl;
 				break;
 			case 9:
 				delete(treap_obj);
@@ -334,7 +337,6 @@ void performance_comparator(){
 				break;
 			case 1:
 				generate_test_case();
-				cout<<"Test case file named test_case.txt has been created"<<endl;
 				break;
 			case 2:
 				bst_object = new TreeAPI();
