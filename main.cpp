@@ -76,6 +76,7 @@ int take_input_from_file(treap *treap_obj){
 			}catch(const char* msg){}	
 	}
 	treap_obj->print_treap("graph.gv");
+	fclose(fptr);
 	return 1;
 }
 
@@ -102,6 +103,7 @@ int take_input_from_file(AVL_Tree *avl_tree_object){
 			}catch(const char* msg){}
 	}
 	avl_tree_object->AVL_Print("graph.gv");
+	fclose(fptr);
 	return 1;
 }
 
@@ -124,6 +126,7 @@ int take_input_from_file(TreeAPI *bst_object){
 			bst_object->deleteElement(element);
 	}
 	bst_object->printTree();
+	fclose(fptr);
 	return 1;
 }
 
