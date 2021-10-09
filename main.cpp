@@ -172,6 +172,7 @@ void treap_executor(){
 					cout<<"Element "<<element<<" has been successfully inserted!"<<endl;
 				}catch(const char* msg){
 					cerr<<"\n---------WARNING----------"<<endl;
+					cerr<<"Element "<<element2<<" could not be inserted!"<<endl;
 					cerr<<"Exception caught at insert() method :: "<<msg<<endl;
 				}
 				break;
@@ -181,7 +182,13 @@ void treap_executor(){
 				cout<<"Insert all the elements:"<<endl;
 				for(int i=0;i<element;i++){
 					cin>>element2;
-					treap_obj->insert(element2);
+					try{
+						treap_obj->insert(element2);
+						cout<<"Element "<<element2<<" has been successfully inserted!"<<endl;
+					}catch(const char* msg){
+						cerr<<"Element "<<element2<<" could not be inserted!"<<endl;
+						cerr<<"Exception caught at insert() method :: "<<msg<<endl;
+					}
 				}
 				break;
 			case 3:
